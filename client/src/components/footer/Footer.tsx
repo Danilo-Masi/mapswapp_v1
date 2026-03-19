@@ -1,39 +1,67 @@
+import type { ReactNode } from "react"
+
+function LinkContainer({ children, title }: { children: ReactNode, title: string }) {
+    return (
+        <div className="flex flex-col gap-3 text-center md:text-left">
+            <h1 className="text-lg font-bold">{title}</h1>
+            <ul className="text-base md:text-sm text-zinc-500 flex flex-col gap-2">
+                {children}
+            </ul>
+        </div>
+    )
+}
+
 export default function Footer() {
     return (
-        <div className="w-full h-auto  flex flex-wrap items-start justify-start py-5 gap-10 border-t">
-            <div className="w-full md:w-[calc(25%-30px)] h-auto flex flex-col gap-3 text-center md:text-left">
-                <h1 className="text-3xl font-extrabold">
-                    Viat<span className="text-amber-300">ora</span>
-                </h1>
-                <h3 className="text-base md:text-sm text-zinc-400 text-balance">Live the experience with a mapped itinerary</h3>
+        <footer className="w-full border-t border-zinc-200">
+
+            <div className="w-full py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
+
+                {/* Brand */}
+                <div className="flex flex-col gap-3 text-center md:text-left">
+                    <h1 className="text-3xl font-extrabold">
+                        Viat<span className="text-amber-400">ora</span>
+                    </h1>
+                    <p className="text-base md:text-sm text-zinc-500 max-w-xs">
+                        Ready to follow itineraries, instantly on Google Maps.
+                    </p>
+                    <p className="text-xs text-zinc-400">
+                        No apps to download • Instant access
+                    </p>
+                </div>
+
+                {/* Explore */}
+                <LinkContainer title="Explore">
+                    <li className="hover:text-amber-400 cursor-pointer transition">How it works</li>
+                    <li className="hover:text-amber-400 cursor-pointer transition">Browse itineraries</li>
+                    <li className="hover:text-amber-400 cursor-pointer transition">FAQ</li>
+                </LinkContainer>
+
+                {/* Legal */}
+                <LinkContainer title="Legal">
+                    <li className="hover:text-amber-400 cursor-pointer transition">Terms of Service</li>
+                    <li className="hover:text-amber-400 cursor-pointer transition">Privacy Policy</li>
+                </LinkContainer>
+
+                {/* Community */}
+                <LinkContainer title="Community">
+                    <li className="hover:text-amber-400 cursor-pointer transition">Twitter</li>
+                    <li className="hover:text-amber-400 cursor-pointer transition">Reddit</li>
+                    <li className="hover:text-amber-400 cursor-pointer transition font-semibold">Become a creator</li>
+                </LinkContainer>
+
             </div>
-            <div className="w-full md:w-[calc(25%-30px)] h-auto flex flex-col text-center">
-                <h1 className="text-xl font-bold">Product</h1>
-                <ul className="text-base font-light text-zinc-400 mt-3 flex flex-col gap-3">
-                    <li>Features</li>
-                    <li>Itinerary</li>
-                    <li>Faqs</li>
-                </ul>
+
+            {/* Bottom */}
+            <div className="w-full border-t border-zinc-200 py-6 flex flex-col md:flex-row items-center justify-between gap-y-3">
+                <p className="text-xs text-zinc-400">
+                    © 2026 Viatora. All rights reserved.
+                </p>
+                <p className="text-xs text-zinc-400 hover:text-amber-400 cursor-pointer transition">
+                    Sitemap
+                </p>
             </div>
-            <div className="w-full md:w-[calc(25%-30px)] h-auto flex flex-col text-center">
-                <h1 className="text-xl font-bold">Legal</h1>
-                <ul className="text-base font-light text-zinc-400 mt-3 flex flex-col gap-3">
-                    <li>Terms of services</li>
-                    <li>Privacy policy</li>
-                </ul>
-            </div>
-            <div className="w-full md:w-[calc(25%-30px)] h-auto  flex flex-col text-center">
-                <h1 className="text-xl font-bold">Resources</h1>
-                <ul className="text-base font-light text-zinc-400 mt-3 flex flex-col gap-3">
-                    <li>X (Twitter)</li>
-                    <li>Reddit</li>
-                    <li>Want to sell your itineray?</li>
-                </ul>
-            </div>
-            <div className="w-full h-auto flex flex-col md:flex-row gap-3 items-center justify-between border-t pt-5">
-                <p className="text-sm text-zinc-400">@2026 Viatora - All right reserved</p>
-                <p className="text-sm text-zinc-400 underline">sitemap</p>
-            </div>
-        </div>
+
+        </footer>
     )
 }

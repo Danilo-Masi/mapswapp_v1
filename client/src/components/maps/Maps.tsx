@@ -3,8 +3,7 @@ import siviglia from "../../assets/siviglia_card.jpg";
 import budapest from "../../assets/budapest_card.jpg";
 import milano from "../../assets/milano_card.jpg";
 import ItineraryCard from "./ItineraryCard";
-import { useState } from "react";
-import MobileInformation from "./MobileInformation";
+import ItineraryCardSoon from "./ItineraryCardSoon";
 
 const itinerari = [
     {
@@ -47,23 +46,37 @@ const itinerari = [
 
 export default function Maps() {
     return (
-        <div className="w-full h-auto flex flex-col items-center justify-start gap-15">
+        <section className="w-full flex flex-col items-center gap-12">
 
-            <h1 className="text-4xl font-bold text-center md:max-w-lg">
-                Chose your itinerary
-            </h1>
+            {/* Head */}
+            <div className="flex flex-col items-center text-center gap-3">
+                <h1 className="text-4xl md:text-5xl max-w-xs font-bold text-zinc-900">
+                    Your next trip starts here
+                </h1>
+                <p className="text-base md:text-lg max-w-xs font-normal text-zinc-500">
+                    Open any itinerary directly on Google Maps and start exploring instantly.
+                </p>
+                <p className="text-xs font-light text-zinc-400">
+                    {itinerari.length} itineraries available
+                </p>
+            </div>
 
-            <div className="w-full h-auto flex flex-wrap gap-5">
+            {/* Cards */}
+            <div className="w-full flex flex-wrap gap-5 gap-y-8 justify-start items-start">
                 {itinerari.map((itinerario) => (
                     <ItineraryCard
+                        key={itinerario.id}
                         image={itinerario.image}
                         title={itinerario.title}
                         price={itinerario.price}
                         state={itinerario.state}
                         days={itinerario.days}
-                        description={itinerario.description} />
+                        description={itinerario.description}
+                    />
                 ))}
+                <ItineraryCardSoon />
             </div>
-        </div>
+
+        </section>
     )
 }

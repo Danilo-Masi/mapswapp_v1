@@ -102,7 +102,7 @@ export default function Hero() {
             <div className="w-full h-full flex flex-wrap items-end justify-center gap-5">
                 {isMobile ? (
                     <PhoneMockup
-                        height="h-[80svh]"
+                        height="h-svh"
                         hour="9:41"
                         title="Amsterdam 🌷🇳🇱"
                         days="3 days itinerary"
@@ -114,7 +114,7 @@ export default function Hero() {
                 ) : (
                     <>
                         <PhoneMockup
-                            height="h-[70svh]"
+                            height="h-[75svh]"
                             hour="10:37"
                             title="Seville ☀️🇪🇸"
                             days="10 days itinerary"
@@ -123,7 +123,7 @@ export default function Hero() {
                             daySelector={daySelector1}
                             coordinates={coordinates1} />
                         <PhoneMockup
-                            height="h-[80svh]"
+                            height="h-[90svh]"
                             hour="9:41"
                             title="Amsterdam 🌷🇳🇱"
                             days="3 days itinerary"
@@ -132,7 +132,7 @@ export default function Hero() {
                             daySelector={daySelector2}
                             coordinates={coordinates2} />
                         <PhoneMockup
-                            height="h-[70svh]"
+                            height="h-[75svh]"
                             hour="18:11"
                             title="Rome 🍝🇮🇹"
                             days="5 days itinerary"
@@ -145,8 +145,7 @@ export default function Hero() {
 
             </div>
             {/* Effetcs */}
-            <div className="w-full h-full absolute bottom-0 left-0 bg-linear-to-t from-5%/3 from-zinc-50 via-transparent to-transparent z-20" />
-            <div className="w-full h-full absolute bottom-0 left-0 bg-linear-to-t from-zinc-50 via-transparent to-transparent z-20" />
+            <div className="w-full absolute bottom-0 left-0 h-[40svh] bg-linear-to-t from-zinc-50 via-zinc-50/90 to-transparent z-20" />
         </div>
     )
 }
