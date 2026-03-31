@@ -82,7 +82,7 @@ export default function Hero() {
     ];
 
     return (
-        <div className="w-full h-auto min-h-[80svh] flex flex-col items-center justify-center gap-10 relative">
+        <div className="w-full h-auto min-h-[80svh] flex flex-col items-center justify-center gap-10">
             {/* Text */}
             <section className="w-full flex flex-col items-center justify-center text-center gap-6 z-50">
                 <h1 className="text-6xl font-extrabold leading-tight max-w-2xl text-balance">
@@ -99,7 +99,7 @@ export default function Hero() {
                 </Button>
             </section>
             {/* Design */}
-            <div className="w-full h-full flex flex-wrap items-end justify-center gap-5">
+            <div className="w-full h-full flex flex-wrap items-end justify-center gap-5 relative">
                 {isMobile ? (
                     <PhoneMockup
                         height="h-svh"
@@ -142,10 +142,9 @@ export default function Hero() {
                             coordinates={coordinates3} />
                     </>
                 )}
-
+                {/* Effetcs */}
+                <div className="w-full absolute bottom-0 left-0 h-[40svh] bg-linear-to-t from-zinc-50 via-zinc-50/90 to-transparent z-20" />
             </div>
-            {/* Effetcs */}
-            <div className="w-full absolute bottom-0 left-0 h-[40svh] bg-linear-to-t from-zinc-50 via-zinc-50/90 to-transparent z-20" />
         </div>
     )
 }

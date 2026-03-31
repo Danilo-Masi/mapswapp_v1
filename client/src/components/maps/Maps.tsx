@@ -4,6 +4,7 @@ import budapest from "../../assets/budapest_card.jpg";
 import milano from "../../assets/milano_card.jpg";
 import ItineraryCard from "./ItineraryCard";
 import ItineraryCardSoon from "./ItineraryCardSoon";
+import SearchBar from "./SearchBar";
 
 const itinerari = [
     {
@@ -46,21 +47,9 @@ const itinerari = [
 
 export default function Maps() {
     return (
-        <section className="w-full flex flex-col items-center gap-12">
-
-            {/* Head */}
-            <div className="flex flex-col items-center text-center gap-3">
-                <h1 className="text-4xl md:text-5xl max-w-xs font-bold text-zinc-900">
-                    Your next trip starts here
-                </h1>
-                <p className="text-base md:text-lg max-w-xs font-normal text-zinc-500">
-                    Open any itinerary directly on Google Maps and start exploring instantly.
-                </p>
-                <p className="text-xs font-light text-zinc-400">
-                    {itinerari.length} itineraries available
-                </p>
-            </div>
-
+        <section className="w-full flex flex-col items-center gap-32 md:gap-20">
+            {/* Search Bar */}
+            <SearchBar />
             {/* Cards */}
             <div className="w-full flex flex-wrap gap-5 gap-y-8 justify-start items-start">
                 {itinerari.map((itinerario) => (
@@ -76,7 +65,6 @@ export default function Maps() {
                 ))}
                 <ItineraryCardSoon />
             </div>
-
         </section>
     )
 }
