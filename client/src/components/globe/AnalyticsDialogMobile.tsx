@@ -1,57 +1,168 @@
-import { Flag, Heart } from "lucide-react";
+import { useMemo, useState } from "react";
 import { Drawer, DrawerContent } from "../ui/drawer";
-import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 import { Separator } from "../ui/separator";
+import DataVisualization from "./DataVisualization";
+import ToggleButtons from "./ToggleButtons";
+import countries from "world-countries";
+import ReactCountryFlag from "react-country-flag";
+import { CountryName } from "react-countryname-flag";
 
 interface AnalyticsDialogMobileProps {
   isAnalyticsOpen: boolean;
   setAnalyticsOpen: (open: boolean) => void;
+  countriesState: { [key: string]: string };
 }
 
-function DataVisualization({ data, info }: { data: string; info: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center gap-1">
-      <h1 className="text-sm text-zinc-800 font-semibold">{data}</h1>
-      <h3 className="text-xs text-zinc-400 text-balance">{info}</h3>
-    </div>
-  )
-}
+const VALID_REGIONS = ["Europe", "Asia", "Africa", "Oceania", "Americas"];
 
-function ToggleButton() {
-  return (
-    <ToggleGroup variant="outline" type="single" defaultValue="visited" size="lg" >
-      <ToggleGroupItem value="visited" aria-label="Toggle visited" className="flex gap-2 cursor-pointer">
-        <Flag fill="currentColor" />Visited
-      </ToggleGroupItem>
-      <ToggleGroupItem value="wishlist" aria-label="Toggle wishlist" className="flex gap-2 cursor-pointer">
-        <Heart fill="currentColor" /> Wishlist
-      </ToggleGroupItem>
-    </ToggleGroup>
-  )
-}
+// Mapping country --> continent
+const countryToContinent = Object.fromEntries(
+  countries.map(c => [c.cca2, c.region])
+);
 
-export default function AnalyticsDialogMobile({ isAnalyticsOpen, setAnalyticsOpen }: AnalyticsDialogMobileProps) {
+// Total countries per continent
+const totalByContinent: Record<string, number> = {};
+countries.forEach((c) => {
+  if (!VALID_REGIONS.includes(c.region)) return;
+
+  if (!totalByContinent[c.region]) {
+    totalByContinent[c.region] = 0;
+  }
+  totalByContinent[c.region]++;
+});
+
+export default function AnalyticsDialogMobile({ isAnalyticsOpen, setAnalyticsOpen, countriesState }: AnalyticsDialogMobileProps) {
+
+  const [selectedType, setSelectedType] = useState<"visited" | "wishlist">("visited");
+
+  // Grouped countries
+  const grouped = useMemo(() => {
+    const grouped: Record<string, string[]> = {};
+
+    Object.entries(countriesState).forEach(([code, status]) => {
+      if (status !== selectedType) return;
+
+      const continent = countryToContinent[code];
+      if (!continent || !VALID_REGIONS.includes(continent)) return;
+
+      if (!grouped[continent]) grouped[continent] = [];
+      grouped[continent].push(code);
+    });
+
+    // ordine stabile
+    return Object.fromEntries(
+      VALID_REGIONS
+        .filter(region => grouped[region])
+        .map(region => [region, grouped[region]])
+    );
+
+  }, [countriesState, selectedType]);
+
+  // Visited country count
+  const visitedCount = useMemo(
+    () => Object.values(countriesState).filter(v => v === "visited").length,
+    [countriesState]
+  );
+
+  // Percentage of world visited
+  const percentage = Math.round((visitedCount / 195) * 100);
+
+  // World regions visited
+  const worldRegions = useMemo(
+    () => Object.keys(grouped).length,
+    [grouped]
+  );
+
+  // Visited by continent
+  const visitedByContinent = useMemo(() => {
+    const result: Record<string, number> = {};
+
+    Object.entries(countriesState).forEach(([code, status]) => {
+      if (status !== "visited") return;
+
+      const continent = countryToContinent[code];
+      if (!continent || !VALID_REGIONS.includes(continent)) return;
+
+      if (!result[continent]) result[continent] = 0;
+      result[continent]++;
+    });
+
+    return result;
+  }, [countriesState]);
+
   return (
     <Drawer open={isAnalyticsOpen} onOpenChange={setAnalyticsOpen}>
-      <DrawerContent className="p-4 pt-0 z-50 flex flex-col gap-6">
+      <DrawerContent className="p-4 pt-0 z-50 flex flex-col gap-8">
 
-        <section className="w-full min-h-[5svh] flex items-start justify-between">
-          <DataVisualization data="8/195" info="countries" />
-          <Separator orientation="vertical" className="h-[5svh]" />
-          <DataVisualization data="4%" info="of the world" />
-          <Separator orientation="vertical" className="h-[5svh]" />
-          <DataVisualization data="1/8" info="world region" />
+        {/* HEADER STATS */}
+        <section className="flex justify-between items-center">
+          <DataVisualization data={`${visitedCount}/195`} info="countries" />
+          <Separator orientation="vertical" className="h-6" />
+          <DataVisualization data={`${percentage}%`} info="of the world" />
+          <Separator orientation="vertical" className="h-6" />
+          <DataVisualization data={`${worldRegions}/5`} info="world regions" />
         </section>
 
-        <section className="w-full h-auto min-h-[5svh] flex items-center justify-center">
-          <ToggleButton />
+        {/* TOGGLE */}
+        <section className="flex justify-center">
+          <ToggleButtons value={selectedType} onChange={setSelectedType} />
         </section>
 
-        <section className="w-full h-auto min-h-[40svh] max-h-[40svh] overflow-scroll bg-red-500">
+        {/* LIST */}
+        <section className="flex flex-col gap-5 max-h-[55svh] overflow-y-auto pr-1">
 
+          {Object.keys(grouped).length === 0 && (
+            <p className="text-center text-sm text-zinc-400 py-10">
+              No countries yet
+            </p>
+          )}
+
+          {Object.entries(grouped).map(([continent, codes]) => {
+            const visited = visitedByContinent[continent] || 0;
+            const total = totalByContinent[continent] || 0;
+            const progress = total ? (visited / total) * 100 : 0;
+
+            return (
+              <div key={continent} className="flex flex-col gap-3">
+
+                {/* HEADER CONTINENTE */}
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-sm font-semibold text-zinc-800">
+                      {continent}
+                    </h2>
+                    <span className="text-xs text-zinc-500">
+                      {visited}/{total}
+                    </span>
+                  </div>
+
+                  {/* PROGRESS BAR */}
+                  <div className="w-full h-1.5 bg-zinc-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-amber-400 transition-all"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </div>
+
+                {/* COUNTRIES */}
+                <div className="flex flex-wrap gap-2">
+                  {codes.map((code) => (
+                    <div
+                      key={code}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-100 text-xs">
+                      <ReactCountryFlag countryCode={code} />
+                      <CountryName countryCode={code} />
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            );
+          })}
         </section>
 
-      </DrawerContent >
+      </DrawerContent>
     </Drawer>
-  )
+  );
 }

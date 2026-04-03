@@ -1,8 +1,9 @@
-import { Compass, Flag, Heart, X } from "lucide-react"
-import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
 import type { Dispatch, SetStateAction } from "react";
-import ReactCountryFlag from "react-country-flag"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
+import { Compass, Flag, Heart } from "lucide-react"
+import ReactCountryFlag from "react-country-flag"
+import { useNavigate } from "react-router-dom";
 
 interface StatusDialogProps {
     dialogOpen: boolean;
@@ -12,39 +13,36 @@ interface StatusDialogProps {
     countriesState: { [key: string]: string };
 }
 
-export function StatusDialog({ dialogOpen, setDialogOpen, selectedCountry, setCountriesState, countriesState }: StatusDialogProps) {
-
+export default function StatusDialog({ dialogOpen, setDialogOpen, selectedCountry, setCountriesState, countriesState }: StatusDialogProps) {
+    const navigate = useNavigate();
     const isVisited = countriesState[selectedCountry.code] === "visited";
     const isWishlist = countriesState[selectedCountry.code] === "wishlist";
 
     function handleSetStatus(status: "visited" | "wishlist") {
-        setCountriesState((prev: any) => ({
-            ...prev,
-            [selectedCountry.code]: status,
-        }));
+        setCountriesState((prev: any) => {
+            const currentStatus = prev?.[selectedCountry.code];
+            return {
+                ...prev,
+                [selectedCountry.code]:
+                    currentStatus === status ? null : status,
+            };
+        });
         setDialogOpen(false);
     }
 
     return (
-        <AlertDialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <AlertDialogContent className="z-50 max-w-md p-6">
+        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogContent className="z-50 max-w-md p-6" showCloseButton={false}>
 
                 {/* HEADER */}
-                <AlertDialogHeader >
-                    <AlertDialogTitle className="text-2xl font-bold text-balance flex items-center justify-between w-full">
-                        <div className="flex items-center gap-2">
-                            <ReactCountryFlag countryCode={selectedCountry.code} /> {selectedCountry.name}
-                        </div>
-                        <span
-                            onClick={() => setDialogOpen(false)}
-                            className="p-2 bg-zinc-200 rounded-lg cursor-pointer">
-                            <X className="w-4 h-4 text-zinc-400" />
-                        </span>
-                    </AlertDialogTitle>
-                    <AlertDialogDescription className="text-sm text-zinc-500">
+                <DialogHeader >
+                    <DialogTitle className="text-2xl font-bold text-balance flex items-center justify-start gap-2 w-full">
+                        <ReactCountryFlag countryCode={selectedCountry.code} /> {selectedCountry.name}
+                    </DialogTitle>
+                    <DialogDescription className="text-sm text-zinc-500">
                         Have you been here or planning to go?
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
+                    </DialogDescription>
+                </DialogHeader>
 
                 {/* OPTIONS */}
                 <div className="flex flex-wrap gap-4 mt-4">
@@ -80,14 +78,16 @@ export function StatusDialog({ dialogOpen, setDialogOpen, selectedCountry, setCo
                     </div>
 
                     {/* CTA */}
-                    <Button className="w-full gap-2 py-6 rounded-xl bg-zinc-900 text-white font-semibold transition-all">
+                    <Button
+                        onClick={() => navigate(`/?country=${selectedCountry.code}`)}
+                        className="w-full gap-2 py-6 rounded-xl bg-zinc-900 text-white font-semibold transition-all">
                         <Compass className="w-5 h-5" />
-                        Explore itineraries
+                        Explore {selectedCountry.name} <ReactCountryFlag countryCode={selectedCountry.code} />
                     </Button>
 
                 </div>
 
-            </AlertDialogContent>
-        </AlertDialog>
+            </DialogContent>
+        </Dialog>
     )
 }

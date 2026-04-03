@@ -26,18 +26,17 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
     function getColor(status: string) {
         switch (status) {
             case "visited":
-                return "#f59e0b"; // giallo
+                return "#f59e0b";
             case "wishlist":
-                return "#3b82f6"; // blu
+                return "#3b82f6";
             default:
-                return "#e5e7eb"; // grigio
+                return "#e5e7eb";
         }
     }
 
     function style(feature: any) {
         const iso = "ISO3166-1-Alpha-2";
         const code = feature.properties[iso];
-
         return {
             fillColor: getColor(countriesState[code]),
             weight: 1.5,
@@ -70,7 +69,7 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
             },
 
             mouseout: (e: any) => {
-                geoJsonRef.current.resetStyle(e.target); // 🔥 FIX VERO
+                geoJsonRef.current.resetStyle(e.target);
             },
         });
     }
@@ -79,14 +78,11 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
         <div className='w-full h-full z-0'>
             <MapContainer
                 center={[20, 0]}
-                zoomControl={isMobile ? false : true}
+                zoomControl={false}
                 zoom={3}
                 minZoom={3}
                 maxZoom={8}
-                maxBounds={[
-                    [-90, -180],
-                    [90, 180],
-                ]}
+                maxBounds={[[-90, -180], [90, 180]]}
                 maxBoundsViscosity={1.0}
                 scrollWheelZoom={false}
                 className="w-full h-full z-0">
@@ -99,8 +95,7 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
                 {/* Base map */}
                 <TileLayer
                     pane='base'
-                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-                />
+                    url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
                 {/* Countries */}
                 {geoData && (
@@ -110,8 +105,7 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
                         key={JSON.stringify(countriesState)}
                         data={geoData}
                         style={style}
-                        onEachFeature={onEachFeature}
-                    />
+                        onEachFeature={onEachFeature} />
                 )}
 
                 {/* Labels */}

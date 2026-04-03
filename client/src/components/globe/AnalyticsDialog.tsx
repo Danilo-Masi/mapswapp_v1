@@ -1,148 +1,168 @@
-import { Flag, Heart } from "lucide-react";
-import { AlertDialog, AlertDialogContent } from "../ui/alert-dialog";
 import { Separator } from "../ui/separator";
-import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
-import { useEffect, useState } from "react";
-import ReactCountryFlag from "react-country-flag"
-import { CountryName } from 'react-countryname-flag'
+import { useMemo, useState } from "react";
+import ReactCountryFlag from "react-country-flag";
+import { CountryName } from "react-countryname-flag";
+import countries from "world-countries";
+import { Dialog, DialogContent } from "../ui/dialog";
+import DataVisualization from "./DataVisualization";
+import ToggleButtons from "./ToggleButtons";
 
 interface AnalyticsDialogProps {
     isAnalyticsOpen: boolean;
     setAnalyticsOpen: (open: boolean) => void;
+    countriesState: Record<string, string>;
 }
 
-interface DataVisualizationProps {
-    data: string;
-    info: string;
-}
+const VALID_REGIONS = ["Europe", "Asia", "Africa", "Oceania", "Americas"];
 
-{/* Mapping country codes to continents // TO REPLACE // */ }
-const countryToContinent: Record<string, string> = {
-    IT: "Europe",
-    FR: "Europe",
-    ES: "Europe",
-    US: "North America",
-    BR: "South America",
-    JP: "Asia",
-    AU: "Oceania",
-    ZA: "Africa",
-};
+// Mapping country --> continent
+const countryToContinent = Object.fromEntries(
+    countries.map((c) => [c.cca2, c.region])
+);
 
-{/* Data Visualization Component */ }
-function DataVisualization({ data, info }: DataVisualizationProps) {
-    return (
-        <div className="flex flex-col items-center justify-center gap-1">
-            <h1 className="text-sm text-zinc-800 font-semibold">{data}</h1>
-            <h3 className="text-xs text-zinc-400 text-balance">{info}</h3>
-        </div>
-    )
-}
+// Total countries per continent
+const totalByContinent: Record<string, number> = countries.reduce(
+    (acc, c) => {
+        if (!acc[c.region]) acc[c.region] = 0;
+        acc[c.region]++;
+        return acc;
+    },
+    {} as Record<string, number>
+);
 
-{/* Toggle Button Component */ }
-function ToggleButton({ value, onChange }: any) {
-    return (
-        <ToggleGroup
-            variant="outline"
-            type="single"
-            defaultValue="visited"
-            size="lg"
-            value={value}
-            onValueChange={(val) => val && onChange(val)}>
-            <ToggleGroupItem value="visited" aria-label="Toggle visited" className="flex gap-2 cursor-pointer">
-                <Flag fill="currentColor" />Visited
-            </ToggleGroupItem>
-            <ToggleGroupItem value="wishlist" aria-label="Toggle wishlist" className="flex gap-2 cursor-pointer">
-                <Heart fill="currentColor" /> Wishlist
-            </ToggleGroupItem>
-        </ToggleGroup>
-    )
-}
-
-export default function AnalyticsDialog({ isAnalyticsOpen, setAnalyticsOpen }: AnalyticsDialogProps) {
-
-    const [countriesState, setCountriesState] = useState<any>({});
+export default function AnalyticsDialog({ isAnalyticsOpen, setAnalyticsOpen, countriesState }: AnalyticsDialogProps) {
     const [selectedType, setSelectedType] = useState<"visited" | "wishlist">("visited");
 
-    useEffect(() => {
-        const saved = localStorage.getItem("countriesState");
-        if (saved) {
-            setCountriesState(JSON.parse(saved));
-        }
-    }, []);
-
-    {/* Group countries by continent based on their status */ }
-    function groupCountries() {
-        const grouped: Record<string, string[]> = {};
+    // Grouped countries
+    const grouped = useMemo(() => {
+        const result: Record<string, string[]> = {};
 
         Object.entries(countriesState).forEach(([code, status]) => {
             if (status !== selectedType) return;
 
-            const continent = countryToContinent[code] || "Other";
+            const continent = countryToContinent[code];
+            if (!continent || !VALID_REGIONS.includes(continent)) return;
 
-            if (!grouped[continent]) {
-                grouped[continent] = [];
+            if (!result[continent]) result[continent] = [];
+
+            if (!result[continent].includes(code)) {
+                result[continent].push(code);
             }
-
-            grouped[continent].push(code);
         });
 
-        return grouped;
-    }
+        // ordine stabile
+        return VALID_REGIONS.reduce((acc, region) => {
+            if (result[region]) acc[region] = result[region];
+            return acc;
+        }, {} as Record<string, string[]>);
+    }, [countriesState, selectedType]);
 
-    const grouped = groupCountries();
+    // Visited country count
+    const visitedCount = useMemo(
+        () => Object.values(countriesState).filter((v) => v === "visited").length,
+        [countriesState]
+    );
 
-    const visited = Object.values(countriesState).filter(v => v === "visited").length;
-    const percentage = Math.round((visited / 195) * 100);
-    const worldRegion = Object.keys(grouped).length;
+    // Percentage of world visited
+    const percentage = Math.round((visitedCount / 195) * 100);
+
+    // World regions visited
+    const worldRegionsVisited = Object.keys(grouped).length;
+
+    // Visited by continent
+    const visitedByContinent = useMemo(() => {
+        const result: Record<string, number> = {};
+        Object.entries(countriesState).forEach(([code, status]) => {
+            if (status !== "visited") return;
+            const continent = countryToContinent[code];
+            if (!continent) return;
+            result[continent] = (result[continent] || 0) + 1;
+        });
+        return result;
+    }, [countriesState]);
+
+    // Final data for continent progress bars
+    const continentsData = VALID_REGIONS.map((continent) => ({
+        continent,
+        visited: visitedByContinent[continent] || 0,
+        total: totalByContinent[continent] || 0,
+    }));
 
     return (
-        <AlertDialog open={isAnalyticsOpen} onOpenChange={setAnalyticsOpen}>
-            <AlertDialogContent className="z-50 max-w-md p-6 flex flex-col gap-6">
+        <Dialog open={isAnalyticsOpen} onOpenChange={setAnalyticsOpen}>
+            <DialogContent className="z-50 max-w-md max-h-[90svh] overflow-y-scroll p-6 flex flex-col gap-10" showCloseButton={false}>
 
-                {/* Data Visualization Section */}
-                <section className="w-full min-h-[5svh] flex items-start justify-between">
-                    <DataVisualization data={`${visited}/195`} info="countries" />
-                    <Separator orientation="vertical" className="h-[5svh]" />
+                {/* HEADER STATS */}
+                <section className="w-full flex items-center justify-between">
+                    <DataVisualization data={`${visitedCount}/195`} info="countries" />
+                    <Separator orientation="vertical" className="h-10" />
                     <DataVisualization data={`${percentage}%`} info="of the world" />
-                    <Separator orientation="vertical" className="h-[5svh]" />
-                    <DataVisualization data={worldRegion.toString()} info="world region" />
+                    <Separator orientation="vertical" className="h-10" />
+                    <DataVisualization data={`${worldRegionsVisited}/5`} info="regions" />
                 </section>
 
-                {/* Toggle Button Section */}
-                <section className="w-full h-auto min-h-[5svh] flex items-center justify-center">
-                    <ToggleButton value={selectedType} onChange={setSelectedType} />
-                </section>
+                {/* TOGGLE */}
+                <ToggleButtons value={selectedType} onChange={setSelectedType} />
 
-                {/* Countries List Section */}
-                <section className="w-full h-[40svh] overflow-y-auto flex flex-col items-start justify-start gap-4">
-                    {/* No countries */}
-                    {Object.keys(grouped).length === 0 && (
-                        <p className="w-full h-full flex items-center justify-center text-sm text-zinc-400">
-                            No countries yet
-                        </p>
-                    )}
-                    {/* Countries */}
-                    {Object.entries(grouped).map(([continent, countries]) => (
-                        <div key={continent} className="flex flex-col gap-2">
-                            <h2 className="text-sm font-semibold text-zinc-800">
-                                {continent}
-                            </h2>
-                            <div className="flex flex-col gap-3">
-                                {countries.map((code) => (
-                                    <h3
-                                        key={code}
-                                        className="px-3 py-1 rounded-lg bg-zinc-100 text-sm flex items-center gap-2">
-                                        <ReactCountryFlag countryCode={code} />
-                                        <CountryName countryCode={code} />
-                                    </h3>
-                                ))}
+                {/* PROGRESS CONTINENTS */}
+                <section className="flex flex-col gap-4">
+                    {continentsData.map(({ continent, visited, total }) => (
+                        <div key={continent} className="flex flex-col gap-1">
+
+                            <div className="flex justify-between text-xs text-zinc-500">
+                                <span>{continent}</span>
+                                <span>{visited}/{total}</span>
+                            </div>
+
+                            <div className="w-full h-2 bg-zinc-200 rounded-full overflow-hidden">
+                                <div
+                                    className={`h-full transition-all ${selectedType === "visited"
+                                        ? "bg-amber-400"
+                                        : "bg-blue-400"
+                                        }`}
+                                    style={{
+                                        width: `${total ? (visited / total) * 100 : 0}%`,
+                                    }}
+                                />
                             </div>
 
                         </div>
                     ))}
                 </section>
 
-            </AlertDialogContent>
-        </AlertDialog>
-    )
+                {/* LIST */}
+                <section className="w-full h-[35svh] overflow-y-auto flex flex-col gap-4">
+
+                    {Object.keys(grouped).length === 0 && (
+                        <p className="text-sm text-zinc-400 text-center py-10">
+                            No countries yet
+                        </p>
+                    )}
+
+                    {Object.entries(grouped).map(([continent, codes]) => (
+                        <div key={continent} className="flex flex-col gap-2">
+
+                            <h2 className="text-sm font-semibold text-zinc-800">
+                                {continent}
+                            </h2>
+
+                            <div className="flex flex-col gap-2">
+                                {codes.map((code) => (
+                                    <div
+                                        key={code}
+                                        className="px-3 py-2 rounded-lg bg-zinc-100 hover:bg-zinc-200 transition flex items-center gap-2">
+                                        <ReactCountryFlag countryCode={code} />
+                                        <CountryName countryCode={code} />
+                                    </div>
+                                ))}
+                            </div>
+
+                        </div>
+                    ))}
+
+                </section>
+
+            </DialogContent>
+        </Dialog>
+    );
 }

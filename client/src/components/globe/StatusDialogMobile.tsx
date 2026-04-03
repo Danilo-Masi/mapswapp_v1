@@ -1,8 +1,8 @@
+import { type Dispatch, type SetStateAction } from "react";
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from "@/components/ui/drawer"
-import { Compass, Heart, Flag } from "lucide-react";
-import { useState, type Dispatch, type SetStateAction } from "react";
-import ReactCountryFlag from "react-country-flag";
 import { Button } from "../ui/button";
+import { Compass, Heart, Flag } from "lucide-react";
+import ReactCountryFlag from "react-country-flag";
 
 interface StatusDialogProps {
     dialogOpen: boolean;
@@ -13,25 +13,25 @@ interface StatusDialogProps {
 }
 
 export default function StatusDialogMobile({ dialogOpen, setDialogOpen, selectedCountry, setCountriesState, countriesState }: StatusDialogProps) {
-    const [isLoading, setLoading] = useState(true);
 
     const isVisited = countriesState[selectedCountry.code] === "visited";
     const isWishlist = countriesState[selectedCountry.code] === "wishlist";
 
     function handleSetStatus(status: "visited" | "wishlist") {
-        setLoading(true);
-        setCountriesState((prev: any) => ({
-            ...prev,
-            [selectedCountry.code]: status,
-        }));
-        setLoading(false);
+        setCountriesState((prev: any) => {
+            const currentStatus = prev?.[selectedCountry.code];
+            return {
+                ...prev,
+                [selectedCountry.code]:
+                    currentStatus === status ? null : status,
+            };
+        });
         setDialogOpen(false);
     }
 
     return (
         <Drawer open={dialogOpen} onOpenChange={setDialogOpen}>
             <DrawerContent className="p-4 pt-0 z-50">
-
 
                 {/* HEADER */}
                 <DrawerHeader className="text-center">
@@ -54,17 +54,10 @@ export default function StatusDialogMobile({ dialogOpen, setDialogOpen, selected
                             <div className="flex items-center justify-center rounded-full p-2 bg-amber-100">
                                 <Flag className="text-amber-500 w-5 h-5" fill={isVisited ? "currentColor" : "none"} />
                             </div>
-                            {isLoading ? (
-                                <div>
-                                    Loading...
-                                </div>
-                            ) : (
-                                <div className="flex flex-col">
-                                    <h1 className="text-lg text-black font-semibold">Visited</h1>
-                                    <h3 className="text-sm text-zinc-500 font-light italic">I’ve already been here</h3>
-                                </div>
-                            )}
-
+                            <div className="flex flex-col">
+                                <h1 className="text-lg text-black font-semibold">Visited</h1>
+                                <h3 className="text-sm text-zinc-500 font-light italic">I’ve already been here</h3>
+                            </div>
                         </div>
                     </div>
 
@@ -88,7 +81,7 @@ export default function StatusDialogMobile({ dialogOpen, setDialogOpen, selected
                 {/* CTA */}
                 <Button className="w-full gap-2 py-8 mt-4 rounded-xl bg-zinc-900 text-white font-semibold transition-all">
                     <Compass className="w-5 h-5" />
-                    Explore itineraries
+                    Explore {selectedCountry.name} <ReactCountryFlag countryCode={selectedCountry.code} />
                 </Button>
 
             </DrawerContent >
