@@ -70,7 +70,6 @@ export default function Globe() {
                 <div className="px-3 py-1 rounded-full bg-white shadow text-xs text-zinc-600">
                     🌍 {visitedCount} visited
                 </div>
-
             </div>
 
             {/* COUNTRY STATUS DIALOG */}

@@ -28,7 +28,7 @@ function FeatureContainer({ title, description, icon }: FeatureContainerInterfac
 
 export default function Features() {
     return (
-        <section className="w-full flex flex-col items-center gap-12">
+        <section className=" w-full md:w-5/6 flex flex-col items-center gap-12">
 
             {/* Head */}
             <div className="flex flex-col items-center text-center gap-3">

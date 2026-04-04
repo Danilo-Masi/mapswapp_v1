@@ -4,7 +4,7 @@ import fullmap from "../../assets/fullmap-screen.png"
 
 export default function Cta() {
     return (
-        <section className="w-full py-24 flex flex-col items-center justify-center relative overflow-hidden rounded-2xl border border-zinc-800">
+        <section className=" w-full md:w-5/6 py-24 flex flex-col items-center justify-center relative overflow-hidden rounded-2xl border border-zinc-800">
 
             {/* Background */}
             <img

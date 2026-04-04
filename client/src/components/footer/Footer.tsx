@@ -13,7 +13,7 @@ function LinkContainer({ children, title }: { children: ReactNode, title: string
 
 export default function Footer() {
     return (
-        <footer className="w-full border-t border-zinc-200">
+        <footer className=" w-full md:w-5/6 border-t border-zinc-200">
 
             <div className="w-full py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
 

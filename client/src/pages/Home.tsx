@@ -2,22 +2,20 @@ import Cta from "../components/cta/Cta";
 import Faqs from "../components/faqs/Faqs";
 import Features from "../components/features/Features";
 import Footer from "../components/footer/Footer";
-import Hero from "../components/hero/Hero";
 import Maps from "../components/maps/Maps";
 import Navbar from "../components/navbar/Navbar";
+import HeroGlobe from "@/components/hero/HeroGlobe";
 
 export default function Home() {
     return (
-        <div className="w-full h-auto min-h-svh flex items-start justify-center bg-zinc-50">
-            <div className="w-full md:w-3/4 h-full min-h-svh p-3 flex flex-col gap-30">
-                <Navbar />
-                <Hero />
-                <Maps />
-                <Features />
-                <Faqs />
-                <Cta />
-                <Footer />
-            </div>
+        <div className="w-full h-auto min-h-svh flex flex-col items-center justify-start gap-20 py-5 bg-zinc-50">
+            <Navbar />
+            <HeroGlobe />
+            <Maps />
+            <Features />
+            <Faqs />
+            <Cta />
+            <Footer />
         </div>
     )
 }
