@@ -7,7 +7,7 @@ import HeroGlobe from "@/components/hero/HeroGlobe";
 
 export default function Home() {
     return (
-        <div className="w-full h-auto min-h-svh flex flex-col items-center justify-start gap-30 pb-5 bg-zinc-50">
+        <div className="w-full h-auto min-h-svh flex flex-col items-center justify-start gap-52 pb-5 bg-zinc-50">
             <HeroGlobe />
             <Features />
             <Maps />

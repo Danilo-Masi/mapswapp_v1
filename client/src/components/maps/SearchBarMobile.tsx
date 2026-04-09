@@ -1,7 +1,6 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "../ui/button"
 import { Search, MapPin, CalendarDays, Sun } from "lucide-react"
-import type { ReactNode } from "react"
 
 const destinations = {
     popular: [
@@ -44,12 +43,12 @@ function DestinationSelect() {
     return (
         <Select>
             {/* TRIGGER */}
-            <SelectTrigger className="w-full border-none shadow-none text-sm font-medium flex items-center justify-between gap-2 p-0 cursor-pointer">
+            <SelectTrigger className="w-full border border-zinc-300 shadow-lg text-sm font-medium flex items-center justify-between gap-2 px-5 py-8 cursor-pointer">
                 <MapPin className="w-4 h-4 text-blue-500" />
                 <SelectValue placeholder="Where to?" />
             </SelectTrigger>
             {/* CONTENT */}
-            <SelectContent className="p-3 w-max rounded-xl" position="popper">
+            <SelectContent className="py-5 px-3 w-[calc(100%-24px)] rounded-xl" position="popper">
                 {/* Popular */}
                 <SelectGroup>
                     <SelectLabel className="text-xs text-zinc-400 mb-1">
@@ -101,12 +100,12 @@ function DurationSelect() {
     return (
         <Select>
             {/* TRIGGER */}
-            <SelectTrigger className="w-full border-none shadow-none text-sm font-medium flex items-center gap-2 p-0 cursor-pointer">
+            <SelectTrigger className="w-full border border-zinc-300 shadow-lg text-sm font-medium flex items-center gap-2 px-5 py-8 cursor-pointer">
                 <CalendarDays className="w-4 h-4 text-blue-500" />
                 <SelectValue placeholder="Duration" />
             </SelectTrigger>
             {/* CONTENT */}
-            <SelectContent className="p-3 w-max rounded-xl" position="popper">
+            <SelectContent className="py-5 px-3 w-[calc(100%-24px)] rounded-xl" position="popper">
                 {durations.map((d) => (
                     <SelectItem key={d.value} value={d.value} className="rounded-lg px-3 py-2 hover:bg-blue-50">
                         {d.label}
@@ -121,12 +120,12 @@ function PeriodSelect() {
     return (
         <Select>
             {/* TRIGGER */}
-            <SelectTrigger className="w-full border-none shadow-none text-sm font-medium flex items-center gap-2 p-0 cursor-pointer">
+            <SelectTrigger className="w-full border border-zinc-300 shadow-lg text-sm font-medium flex items-center gap-2 px-5 py-8 cursor-pointer">
                 <Sun className="w-4 h-4 text-blue-500" />
                 <SelectValue placeholder="When?" />
             </SelectTrigger>
             {/* CONTENT */}
-            <SelectContent className="p-3 w-max rounded-xl" position="popper">
+            <SelectContent className="py-5 px-3 w-[calc(100%-24px)] rounded-xl" position="popper">
                 {periods.map((p) => (
                     <SelectItem key={p.value} value={p.value} className="rounded-lg px-3 py-2 hover:bg-blue-50">
                         <div className="flex items-center gap-2">
@@ -140,50 +139,18 @@ function PeriodSelect() {
     )
 }
 
-function Separator() {
-    return <div className="hidden md:block w-px h-10 bg-zinc-200" />
-}
 
-function SelectSection({ children }: { children: ReactNode }) {
+export default function SearchBarMobile() {
     return (
-        <div className="flex-1 w-full hover:bg-zinc-50 rounded-xl px-3 py-2 transition">
-            {children}
-        </div>
-    )
-}
-
-export default function SearchBar() {
-    return (
-        <div className="w-full max-w-4xl bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-zinc-200 px-4 py-4 md:py-3 flex flex-col md:flex-row items-center gap-4 relative">
-
-            {/* Destination */}
-            <SelectSection>
-                <DestinationSelect />
-            </SelectSection>
-
-            <Separator />
-
-            {/* Duration */}
-            <SelectSection>
-                <DurationSelect />
-            </SelectSection>
-
-            <Separator />
-
-            {/* Period */}
-            <SelectSection>
-                <PeriodSelect />
-            </SelectSection>
-
-            <Separator />
-
-            {/* CTA */}
+        <div className="w-full h-auto min-h-[50svh] flex flex-col items-start justify-start gap-6">
+            <DestinationSelect />
+            <DurationSelect />
+            <PeriodSelect />
             <Button
-                className="md:ml-2 w-full md:w-auto px-6 py-5 rounded-xl bg-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition flex items-center justify-center gap-2">
+                className="w-full p-8 text-base font-semibold bg-blue-500 text-white shadow-xl shadow-blue-500/30">
                 Explore
-                <Search className="w-4 h-4" />
+                <Search className="ml-2" size={18} />
             </Button>
-
         </div>
     )
 }

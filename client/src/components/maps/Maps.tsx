@@ -1,10 +1,11 @@
+import SearchBar from "./SearchBar";
+import SearchBarMobile from "./SearchBarMobile";
+import ItineraryCard from "./ItineraryCard";
+// Images
 import amsterdam from "../../assets/amsterdam_card.jpg";
 import siviglia from "../../assets/siviglia_card.jpg";
 import budapest from "../../assets/budapest_card.jpg";
 import milano from "../../assets/milano_card.jpg";
-import ItineraryCard from "./ItineraryCard";
-import ItineraryCardSoon from "./ItineraryCardSoon";
-import SearchBar from "./SearchBar";
 
 const itinerari = [
     {
@@ -46,12 +47,14 @@ const itinerari = [
 ];
 
 export default function Maps() {
+    const isMobile = window.innerWidth < 728;
+
     return (
-        <section className="w-[95%] md:w-5/6 flex flex-col items-center gap-32 md:gap-20 bg-red-500">
+        <section className="w-[95%] md:w-5/6 flex flex-col items-center gap-10">
             {/* Search Bar */}
-            <SearchBar />
+            {isMobile ? <SearchBarMobile /> : <SearchBar />}
             {/* Cards */}
-            <div className="w-full flex flex-wrap gap-5 gap-y-8 justify-start items-start">
+            <div className="w-full flex flex-wrap justify-start items-start gap-8 md:gap-5 ">
                 {itinerari.map((itinerario) => (
                     <ItineraryCard
                         key={itinerario.id}
@@ -63,7 +66,6 @@ export default function Maps() {
                         description={itinerario.description}
                     />
                 ))}
-                <ItineraryCardSoon />
             </div>
         </section>
     )

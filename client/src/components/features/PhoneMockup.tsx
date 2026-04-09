@@ -54,7 +54,7 @@ export default function PhoneMockup() {
                 <div className="absolute bottom-5 left-1/2 -translate-x-1/2 w-[85%] bg-white rounded-xl p-3 shadow-lg flex flex-col gap-1 z-30">
                     <h3 className="text-xs text-zinc-400">Day 1</h3>
                     <h2 className="text-sm font-semibold text-zinc-900">
-                        Soho food & hidden spots
+                        Bronx food & hidden spots
                     </h2>
                 </div>
 

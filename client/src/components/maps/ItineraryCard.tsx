@@ -1,4 +1,4 @@
-import { Bookmark, ShoppingCart } from "lucide-react";
+import { Bookmark, ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface ItineraryCardInterface {
@@ -21,7 +21,7 @@ export default function ItineraryCard({ image, title, price, state, days, descri
             <img src={image} className="w-full h-full object-cover" />
 
             {/* Badge */}
-            <div className="absolute top-5 left-5 bg-amber-400 text-black text-xs font-bold px-3 py-1 rounded-full">
+            <div className="absolute top-5 left-5 bg-amber-300 text-zinc-900 text-xs font-bold px-3 py-1 rounded-full">
                 New map
             </div>
 
@@ -55,8 +55,8 @@ export default function ItineraryCard({ image, title, price, state, days, descri
                 </p>
 
                 {/* CTA */}
-                <Button className="w-full py-6 bg-amber-400 text-black font-semibold text-base rounded-xl hover:scale-[1.02] hover:shadow-xl transition-all duration-200">
-                    Open in Google Maps →
+                <Button className="w-full py-6 bg-blue-500 text-white font-semibold text-base rounded-xl hover:scale-[1.02] hover:shadow-xl transition-all duration-200">
+                    Open in Google Maps <ChevronRight size={18} />
                 </Button>
 
             </section>
