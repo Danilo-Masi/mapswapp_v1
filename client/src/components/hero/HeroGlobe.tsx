@@ -2,7 +2,7 @@ import { Globe3D, type GlobeMarker } from "@/components/ui/3d-globe";
 import { Button } from "../ui/button";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
-import sfondo from "../../assets/sfondo.webp";
+import bg_image from "../../assets/bg_1.jpg";
 
 const sampleMarkers: GlobeMarker[] = [
     // NORTH AMERICA
@@ -167,7 +167,7 @@ export default function HeroGlobe() {
         <section className="w-full h-auto flex flex-col items-center gap-y-10 pt-5 relative">
 
             {/* BACKGROUND */}
-            <img src={sfondo} className="w-full h-full object-cover absolute top-0 left-0 z-0" />
+            <img src={bg_image} className="w-full h-full object-cover absolute top-0 left-0 z-0" />
             <div className="w-full h-[30svh] absolute bottom-0 left-0 bg-linear-to-t from-zinc-50 via-zinc-50/30 to-transparent z-20" />
 
             {/* NAVBAR */}

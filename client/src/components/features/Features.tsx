@@ -2,7 +2,7 @@ import PhoneMockup from "./PhoneMockup";
 import { Button } from "../ui/button";
 import { ChevronRight } from "lucide-react";
 // IMAGES
-import newyork_card from "../../assets/newyork_card.jpg";
+import newyork_card from "../../assets/itineraries/newyork_card.jpg";
 
 interface TextSectionProps {
     span: string;
