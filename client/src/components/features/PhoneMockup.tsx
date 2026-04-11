@@ -1,5 +1,4 @@
 import { Battery, Camera, Hotel, Martini, Signal, UtensilsCrossed, Wifi } from "lucide-react";
-// Image
 import features3 from "../../assets/features3.png";
 
 export default function PhoneMockup() {

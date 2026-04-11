@@ -72,7 +72,7 @@ export default function ItineraryCard({
 }: ItineraryCardInterface) {
 
     return (
-        <div className="w-full md:w-[calc(33%-10px)] h-[80svh] rounded-2xl relative overflow-hidden bg-zinc-900 border border-zinc-200 group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
+        <div className="w-full md:w-[calc(33%-18px)] h-[80svh] rounded-2xl relative overflow-hidden bg-zinc-900 border border-zinc-200 group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
 
             {/* IMAGE */}
             <img src={image} className="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-75 group-hover:opacity-100" />

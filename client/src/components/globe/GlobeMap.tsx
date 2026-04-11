@@ -8,7 +8,6 @@ interface GlobeMapProps {
 }
 
 export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCountry }: GlobeMapProps) {
-    const isMobile = window.innerWidth < 768;
     const geoJsonRef = useRef<any>(null);
     const [geoData, setGeoData] = useState<any>(null);
 

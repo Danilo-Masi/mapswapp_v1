@@ -135,7 +135,7 @@ export const itineraries: Itinerary[] = [
             "Food & nightlife tips"
         ],
         tags: ["milan", "italy", "2 days", "city", "food", "nightlife"],
-        badges: ["trending", "best_value"],
+        badges: ["best_value"],
         spots: 32,
         level: "medium",
         vibe: ["food", "culture"]

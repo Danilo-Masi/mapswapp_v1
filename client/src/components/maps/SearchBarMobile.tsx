@@ -1,6 +1,14 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "../ui/button"
-import { Search, MapPin, CalendarDays, Sun } from "lucide-react"
+import { Search, MapPin, CalendarDays, Sun, Loader } from "lucide-react"
+import { useState, type Dispatch, type SetStateAction } from "react";
+
+const categories = [
+    { value: "trending", label: "Trending", emoji: "🔥" },
+    { value: "new", label: "New", emoji: "✨" },
+    { value: "best_value", label: "Best value", emoji: "💎" },
+    { value: "hidden_gems", label: "Hidden gems", emoji: "🧭" },
+];
 
 const destinations = {
     popular: [
@@ -39,9 +47,9 @@ const periods = [
     { value: "all", label: "All seasons", emoji: "🌍" },
 ];
 
-function DestinationSelect() {
+function DestinationSelect({ value, onChange }: any) {
     return (
-        <Select>
+        <Select value={value} onValueChange={onChange}>
             {/* TRIGGER */}
             <SelectTrigger className="w-full border border-zinc-300 shadow-lg text-sm font-medium flex items-center justify-between gap-2 px-5 py-8 cursor-pointer">
                 <MapPin className="w-4 h-4 text-blue-500" />
@@ -49,6 +57,20 @@ function DestinationSelect() {
             </SelectTrigger>
             {/* CONTENT */}
             <SelectContent className="py-5 px-3 w-[calc(100%-24px)] rounded-xl" position="popper">
+                {/* Category */}
+                <SelectGroup>
+                    <SelectLabel className="text-xs text-zinc-400 mb-1">
+                        Explore
+                    </SelectLabel>
+                    {categories.map((item) => (
+                        <SelectItem key={item.value} value={item.value} className="rounded-lg px-3 py-2 hover:bg-blue-50">
+                            <div className="flex items-center gap-3">
+                                <span className="text-lg">{item.emoji}</span>
+                                <span>{item.label}</span>
+                            </div>
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
                 {/* Popular */}
                 <SelectGroup>
                     <SelectLabel className="text-xs text-zinc-400 mb-1">
@@ -96,9 +118,9 @@ function DestinationSelect() {
     )
 }
 
-function DurationSelect() {
+function DurationSelect({ value, onChange }: any) {
     return (
-        <Select>
+        <Select value={value} onValueChange={onChange}>
             {/* TRIGGER */}
             <SelectTrigger className="w-full border border-zinc-300 shadow-lg text-sm font-medium flex items-center gap-2 px-5 py-8 cursor-pointer">
                 <CalendarDays className="w-4 h-4 text-blue-500" />
@@ -116,9 +138,9 @@ function DurationSelect() {
     )
 }
 
-function PeriodSelect() {
+function PeriodSelect({ value, onChange }: any) {
     return (
-        <Select>
+        <Select value={value} onValueChange={onChange}>
             {/* TRIGGER */}
             <SelectTrigger className="w-full border border-zinc-300 shadow-lg text-sm font-medium flex items-center gap-2 px-5 py-8 cursor-pointer">
                 <Sun className="w-4 h-4 text-blue-500" />
@@ -139,17 +161,62 @@ function PeriodSelect() {
     )
 }
 
+interface SearchBarProps {
+    setFilters: Dispatch<SetStateAction<{ destination: string, duration: string, period: string, badge: string }>>;
+    isExploreLoading: boolean;
+    setExploreLoading: Dispatch<SetStateAction<boolean>>;
+}
 
-export default function SearchBarMobile() {
+export default function SearchBarMobile({ setFilters, isExploreLoading, setExploreLoading }: SearchBarProps) {
+    const [destination, setDestination] = useState("trending")
+    const [duration, setDuration] = useState("")
+    const [period, setPeriod] = useState("")
+    const [badge, setBadge] = useState("trending")
+
+    const handleDestinationChange = (value: string) => {
+        const isCategory = ["trending", "new", "best_value", "hidden_gems"].includes(value)
+
+        if (isCategory) {
+            setBadge(value)
+            setDestination("")
+        } else {
+            setDestination(value)
+            setBadge("")
+        }
+    }
+
+    // Function to set filters
+    const handleSearch = () => {
+        setExploreLoading(true)
+        setFilters({
+            destination,
+            duration,
+            period,
+            badge,
+        })
+        setExploreLoading(false);
+    }
+
     return (
         <div className="w-full h-auto min-h-[50svh] flex flex-col items-start justify-start gap-6">
-            <DestinationSelect />
-            <DurationSelect />
-            <PeriodSelect />
+            <DestinationSelect value={destination || badge} onChange={handleDestinationChange} />
+            <DurationSelect value={period} onChange={setPeriod} />
+            <PeriodSelect value={period} onChange={setPeriod} />
             <Button
-                className="w-full p-8 text-base font-semibold bg-blue-500 text-white shadow-xl shadow-blue-500/30">
-                Explore
-                <Search className="ml-2" size={18} />
+                onClick={handleSearch}
+                disabled={isExploreLoading}
+                className="md:ml-2 w-full md:w-auto px-6 py-5 rounded-xl bg-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition flex items-center justify-center gap-2">
+                {isExploreLoading ? (
+                    <>
+                        Loading
+                        <Loader className="w-4 h-4 animate-spin" />
+                    </>
+                ) : (
+                    <>
+                        Explore
+                        <Search className="w-4 h-4" />
+                    </>
+                )}
             </Button>
         </div>
     )

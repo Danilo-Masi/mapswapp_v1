@@ -7,17 +7,7 @@ import StatusDialog from "@/components/globe/StatusDialog";
 import StatusDialogMobile from "@/components/globe/StatusDialogMobile";
 import AnalyticsDialog from "@/components/globe/AnalyticsDialog";
 import AnalyticsDialogMobile from "@/components/globe/AnalyticsDialogMobile";
-
-function useIsMobile(breakpoint = 768) {
-    const [isMobile, setIsMobile] = useState(false);
-    useEffect(() => {
-        const check = () => setIsMobile(window.innerWidth < breakpoint);
-        check();
-        window.addEventListener("resize", check);
-        return () => window.removeEventListener("resize", check);
-    }, [breakpoint]);
-    return isMobile;
-}
+import useIsMobile from "@/lib/screenWidth";
 
 export default function Globe() {
     const navigate = useNavigate();
