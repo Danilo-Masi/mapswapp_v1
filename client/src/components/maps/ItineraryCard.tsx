@@ -1,5 +1,6 @@
 import { Bookmark, ChevronRight, Flame, Sparkles, MapPin, Vault, Flag } from "lucide-react";
 import { Button } from "../ui/button";
+import { useAppContext } from "@/context/AppContext";
 
 interface ItineraryCardInterface {
     image: string;
@@ -33,7 +34,7 @@ function getBadge(badges?: string[]) {
     if (badges.includes("new")) {
         return (
             <div className="flex items-center gap-1 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-                <Sparkles size={12} fill="white"/> New
+                <Sparkles size={12} fill="white" /> New
             </div>
         );
     }
@@ -57,19 +58,8 @@ function getBadge(badges?: string[]) {
     return null;
 }
 
-export default function ItineraryCard({
-    image,
-    title,
-    price,
-    currency,
-    country,
-    city,
-    duration,
-    shortDescription,
-    spots,
-    badges,
-    vibe
-}: ItineraryCardInterface) {
+export default function ItineraryCard({ image, title, price, currency, country, city, duration, shortDescription, spots, badges, vibe }: ItineraryCardInterface) {
+    const { setPreviewOpen } = useAppContext();
 
     return (
         <div className="w-full md:w-[calc(33%-18px)] h-[80svh] rounded-2xl relative overflow-hidden bg-zinc-900 border border-zinc-200 group cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
@@ -138,7 +128,9 @@ export default function ItineraryCard({
                         {formatPrice(price, currency)}
                     </div>
 
-                    <Button className="flex-1 py-5 bg-blue-500 text-white font-semibold text-sm rounded-xl hover:scale-[1.02] hover:shadow-xl transition-all duration-200">
+                    <Button
+                        onClick={() => setPreviewOpen(true)}
+                        className="flex-1 py-5 bg-blue-500 text-white font-semibold text-sm rounded-xl hover:scale-[1.02] hover:shadow-xl transition-all duration-200">
                         View itinerary <ChevronRight size={16} />
                     </Button>
                 </div>

@@ -1,6 +1,9 @@
 import PhoneMockup from "./PhoneMockup";
 import { Button } from "../ui/button";
 import { ChevronRight } from "lucide-react";
+import { useState, type Dispatch, type SetStateAction } from "react";
+import { Switch } from "../ui/switch";
+import { days } from "@/data/mapData";
 // IMAGES
 import newyork_card from "../../assets/itineraries/newyork_card.jpg";
 
@@ -98,7 +101,9 @@ function Feature1() {
     )
 }
 
-function Feature2() {
+
+
+function Feature2({ daySelected, setDaySelected }: { daySelected: number; setDaySelected: Dispatch<SetStateAction<number>> }) {
     return (
         <div className="w-full h-auto md:h-1/2 flex flex-col md:flex-row items-center gap-8 border border-zinc-200 rounded-2xl p-6 md:p-10 bg-linear-to-b md:bg-linear-to-r from-blue-500/10 via-blue-200/10 to-transparent">
 
@@ -116,22 +121,25 @@ function Feature2() {
             {/* UI PREVIEW */}
             <div className="w-full md:w-1/2 flex items-center justify-center order-2 md:order-1">
                 <div className="w-full max-w-sm flex flex-col gap-3">
-                    {/* DAY CARD */}
-                    {["Day 1 – Arrival & City Walk", "Day 2 – Hidden Spots", "Day 3 – Food & Culture"].map((day, i) => (
-                        <div
-                            key={i}
-                            className="flex items-center justify-between px-4 py-3 rounded-xl bg-white border border-zinc-200 shadow-sm hover:scale-[1.02] transition">
-                            <span className="text-sm font-medium text-zinc-800">
-                                {day}
-                            </span>
-
-                            {/* toggle fake */}
-                            <div className={`w-10 h-5 rounded-full ${i === 0 ? "bg-blue-500" : "bg-zinc-300"} relative`}>
-                                <div className={`absolute top-0.5 ${i === 0 ? "right-0.5" : "left-0.5"} w-4 h-4 bg-white rounded-full transition`} />
+                    {days.map((day) => {
+                        const isActive = daySelected === day.id
+                        return (
+                            <div
+                                key={day.id}
+                                className={`flex flex-col gap-2 px-4 py-3 rounded-xl border shadow-sm transition cursor-pointer ${isActive ? "bg-blue-50 border-blue-300 scale-[1.02]" : "bg-white border-zinc-200 hover:scale-[1.02]"}`}
+                                onClick={() => setDaySelected(day.id)}>
+                                <div className="flex items-center justify-between">
+                                    <span className="text-sm font-semibold text-zinc-800">
+                                        {day.title}
+                                    </span>
+                                    <Switch
+                                        checked={isActive}
+                                        onCheckedChange={() => setDaySelected(day.id)}
+                                        className="data-[state=checked]:bg-blue-500 cursor-pointer" />
+                                </div>
                             </div>
-                        </div>
-                    ))}
-
+                        )
+                    })}
                 </div>
             </div>
 
@@ -139,7 +147,7 @@ function Feature2() {
     )
 }
 
-function Feature3() {
+function Feature3({ daySelected }: { daySelected: number }) {
     return (
         <div className="w-full md:w-1/3 flex flex-col items-center justify-between gap-6 overflow-hidden p-6 pb-0 border border-zinc-200 rounded-2xl bg-zinc-50">
             {/* TEXT */}
@@ -153,21 +161,25 @@ function Feature3() {
                 />
             </div>
             {/* IMAGE */}
-            <PhoneMockup />
+            <PhoneMockup daySelected={daySelected} />
         </div>
     )
 }
 
 export default function Features() {
+    const [daySelected, setDaySelected] = useState<number>(1);
+
     return (
         <section className="w-[95%] md:w-5/6 flex flex-col items-center gap-16">
             <Header />
             <div className="w-full h-auto md:h-[110svh] flex flex-col md:flex-row gap-16 md:gap-10">
                 <div className="w-full md:w-2/3 h-full flex flex-col items-start justify-start gap-16 md:gap-10">
                     <Feature1 />
-                    <Feature2 />
+                    <Feature2
+                        daySelected={daySelected}
+                        setDaySelected={setDaySelected} />
                 </div>
-                <Feature3 />
+                <Feature3 daySelected={daySelected} />
             </div>
         </section>
     )

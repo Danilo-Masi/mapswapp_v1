@@ -263,9 +263,10 @@ export default function SearchBar({ setFilters, isExploreLoading, setExploreLoad
             </Button>
 
             <Button
+                variant="outline"
+                size="icon-lg"
                 onClick={handleReset}
-                disabled={isExploreLoading}
-                className="text-white bg-zinc-200 hover:bg-zinc-400 w-min h-min p-3 transition">
+                disabled={isExploreLoading}>
                 <RefreshCw size={18} />
             </Button>
         </div>

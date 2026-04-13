@@ -86,11 +86,11 @@ export default function Maps() {
                 )}
             </div>
             {/* Empty status */}
-            <div className="w-full h-[40svh] flex items-center justify-center">
-                {filteredItineraries.length === 0 && (
+            {filteredItineraries.length === 0 && (
+                <div className="w-full h-[40svh] flex items-center justify-center">
                     <EmptyResult setFilters={setFilters} />
-                )}
-            </div>
+                </div>
+            )}
         </section>
     )
 }
