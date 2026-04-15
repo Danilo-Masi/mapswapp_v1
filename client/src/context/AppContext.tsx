@@ -17,6 +17,9 @@ type AppContextType = {
     setBadge: Dispatch<SetStateAction<string>>;
     filters: { destination: string, duration: string, period: string, badge: string };
     setFilters: Dispatch<SetStateAction<{ destination: string, duration: string, period: string, badge: string }>>;
+    // Footer
+    isCollaborationOpen: boolean;
+    setCollaborationOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -36,6 +39,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         period: "",
         badge: "trending"
     });
+    // Footer
+    const [isCollaborationOpen, setCollaborationOpen] = useState(false);
 
     return (
         <AppContext.Provider
@@ -55,7 +60,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
                 badge,
                 setBadge,
                 filters,
-                setFilters
+                setFilters,
+                // Footer
+                isCollaborationOpen,
+                setCollaborationOpen
             }}>
             {children}
         </AppContext.Provider>

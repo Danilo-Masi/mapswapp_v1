@@ -4,35 +4,48 @@ import { useEffect } from "react"
 // Data
 import { mapData } from "@/data/mapData"
 
-const createIcon = (type: string, label?: string,) => {
-    let bg = "#ef4444"
-
-    if (type === "food") bg = "#f97316"
-    if (type === "bar") bg = "#1e3a8a"
-    if (type === "hotel") bg = "#7c3aed"
-    if (type === "photo") bg = "#f59e0b"
-
-    return L.divIcon({
+// Number icon
+const createIcon = (label: string) =>
+    new L.DivIcon({
         html: `
-      <div style="
-        width:32px;
-        height:32px;
-        border-radius:999px;
-        background:${bg};
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        color:white;
-        font-size:12px;
-        font-weight:600;
-        box-shadow:0 4px 10px rgba(0,0,0,0.2);
-      ">
-        ${label || "B"}
-      </div>
-    `,
+            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-red-500 text-white text-xs font-bold shadow-md border-2 border-white">
+                ${label}
+            </div>
+        `,
         className: "",
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
     })
-}
+
+// Food icon
+const createFoodIcon = () =>
+    new L.DivIcon({
+        html: `
+            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-amber-500 text-white text-xs font-bold shadow-md border-2 border-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-utensils-icon lucide-utensils">
+                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/>
+                </svg>
+            </div>
+        `,
+        className: "",
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+    })
+
+// Photo icon
+const createPhotoIcon = () =>
+    new L.DivIcon({
+        html: `
+            <div class="w-8 h-8 flex items-center justify-center rounded-full bg-violet-500 text-white text-xs font-bold shadow-md border-2 border-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera-icon lucide-camera">
+                <path d="M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"/><circle cx="12" cy="13" r="3"/>
+                </svg>
+            </div>
+        `,
+        className: "",
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+    })
 
 export default function LeafletMap({ daySelected }: { daySelected: number }) {
     const markers = mapData[daySelected as 1 | 2 | 3]
@@ -62,7 +75,8 @@ export default function LeafletMap({ daySelected }: { daySelected: number }) {
                 <Marker
                     key={i}
                     position={m.coords as [number, number]}
-                    icon={createIcon(m.type, m.label)} />
+                    icon={
+                        m.type === "food" ? createFoodIcon() : m.type === "photo" ? createPhotoIcon() : createIcon(m.label)} />
             ))}
 
         </MapContainer>

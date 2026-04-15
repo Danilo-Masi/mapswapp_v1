@@ -1,4 +1,4 @@
-import { Bookmark, ChevronRight, Flame, Sparkles, MapPin, Vault, Flag } from "lucide-react";
+import { ChevronRight, Flame, Sparkles, MapPin, Vault, Flag } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAppContext } from "@/context/AppContext";
 
@@ -71,16 +71,9 @@ export default function ItineraryCard({ id, image, title, price, country, city, 
             {/* OVERLAY */}
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/30 to-transparent" />
 
-            {/* TOP BAR */}
-            <div className="absolute top-5 left-5 right-5 flex justify-between items-center z-20">
-
-                {/* BADGE */}
+            {/* BADGE */}
+            <div className="absolute top-5 left-5 z-20">
                 {getBadge(badges)}
-
-                {/* SAVE */}
-                <div className="p-2 rounded-full bg-black/60 backdrop-blur-md hover:bg-black transition">
-                    <Bookmark color="white" size={16} />
-                </div>
             </div>
 
             {/* CONTENT */}

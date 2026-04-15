@@ -1,11 +1,12 @@
 import PhoneMockup from "./PhoneMockup";
-import { Button } from "../ui/button";
-import { ChevronRight } from "lucide-react";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Switch } from "../ui/switch";
+// Data
 import { days } from "@/data/mapData";
-// IMAGES
+// Images
 import newyork_card from "../../assets/itineraries/newyork_card.jpg";
+import lisbon_card from "../../assets/itineraries/lisbon_card.jpg";
+import london_card from "../../assets/itineraries/london_card.jpg";
 
 interface TextSectionProps {
     span: string;
@@ -35,19 +36,6 @@ function TextSection({ span, title, titleHighlights, description, info }: TextSe
     )
 }
 
-function Header() {
-    return (
-        <div className="flex flex-col items-center text-center gap-4">
-            <h1 className="text-4xl md:text-5xl max-w-md font-extrabold text-zinc-900 leading-tight text-balance">
-                Plan less. Experience more.
-            </h1>
-            <p className="text-base md:text-lg max-w-xl font-light text-zinc-500 leading-relaxed text-balance">
-                Real itineraries made by travelers. Open them on Google Maps and just go.
-            </p>
-        </div>
-    )
-}
-
 function Feature1() {
     return (
         <div className="w-full h-auto md:h-1/2 flex flex-col md:flex-row border border-zinc-300 rounded-xl bg-linear-to-t md:bg-linear-to-l from-blue-500/10 via-blue-200/10 to-transparent">
@@ -64,39 +52,19 @@ function Feature1() {
             </div>
 
             {/* UI PREVIEW */}
-            <div className="w-full md:w-1/2 h-[50svh] md:h-full flex items-start justify-center order-1 md:order-2">
+            <div className="w-full md:w-1/2 h-[50svh] md:h-full order-1 md:order-2 relative overflow-hidden">
                 {/* Card */}
-                <div className="w-[90%] md:w-4/5 h-[90%] p-5 flex flex-col items-start justify-end rounded-b-2xl border border-t-0 border-zinc-200 relative shadow-2xl shadow-zinc-900">
-                    <div className="w-full h-full absolute top-0 left-0 rounded-b-2xl bg-linear-to-t from-black/90 via-black/30 to-transparent z-10" />
-                    <img src={newyork_card} className="w-full h-full object-cover absolute bottom-0 left-0 rounded-b-2xl z-0" />
-                    <section className="flex flex-col w-full absolute rounded-b-2xl bottom-0 left-0 p-5 bg-linear-to-t from-black/90 via-black/60 to-transparent z-20">
-                        <div className="flex items-center justify-between">
-                            <h1 className="text-lg font-bold text-white">
-                                New York Local Guide
-                            </h1>
-                            <p className="py-1 px-3 bg-white/10 backdrop-blur-sm text-sm font-semibold text-white rounded-xl border border-white/20">
-                                $19.95
-                            </p>
-                        </div>
-
-                        <p className="text-white/70 text-xs mt-1 mb-2">
-                            🇺🇸 USA • 14 days
-                        </p>
-
-                        <p className="text-sm text-white/80 leading-relaxed line-clamp-2 mb-4">
-                            Hidden cafés, real Bronx vibes, and spots you won’t find on Google
-                        </p>
-
-                        <Button
-                            className="w-full py-6 bg-blue-500 hover:bg-blue-500/90 text-white font-semibold text-base rounded-xl hover:scale-[1.02] hover:shadow-xl transition-all duration-200 group">
-                            <span className="relative z-10 flex items-center gap-2">
-                                Open in Google Maps <ChevronRight className="transition-transform group-hover:translate-x-1" />
-                            </span>
-                        </Button>
-
-                    </section>
+                <div className="w-[70%] md:w-4/5 h-[90%] flex flex-col items-start justify-end rounded-b-2xl border border-t-0 border-zinc-200 shadow-lg bg-red-500 absolute -top-20 right-22 md:right-19 hover:-rotate-3 transition duration-300">
+                    <img src={lisbon_card} className="w-full h-full object-cover rounded-b-2xl" />
+                </div>
+                <div className="w-[70%] md:w-4/5 h-[90%] flex flex-col items-start justify-end rounded-b-2xl border border-t-0 border-zinc-200 shadow-lg bg-zinc-300 absolute -top-10 right-15 md:right-13 hover:-rotate-3 transition duration-300">
+                    <img src={london_card} className="w-full h-full object-cover rounded-b-2xl" />
+                </div>
+                <div className="w-[70%] md:w-4/5 h-[90%] flex flex-col items-start justify-end rounded-b-2xl border border-t-0 border-zinc-200 shadow-lg bg-green-200 absolute -top-2 right-5 md:right-5 hover:-rotate-2 transition duration-300">
+                    <img src={newyork_card} className="w-full h-full object-cover rounded-b-2xl z-0 absolute bottom-0 left-0" />
                 </div>
             </div>
+
         </div>
     )
 }
@@ -169,8 +137,10 @@ export default function Features() {
     const [daySelected, setDaySelected] = useState<number>(1);
 
     return (
-        <section className="w-[95%] md:w-5/6 flex flex-col items-center gap-16">
-            <Header />
+        <section className="w-[95%] md:w-5/6 flex flex-col items-center gap-16" id="features">
+            <h1 className="text-6xl max-w-xl font-extrabold text-center text-zinc-900 leading-tight text-balance">
+                Plan less. Experience more.
+            </h1>
             <div className="w-full h-auto md:h-[110svh] flex flex-col md:flex-row gap-16 md:gap-10">
                 <div className="w-full md:w-2/3 h-full flex flex-col items-start justify-start gap-16 md:gap-10">
                     <Feature1 />

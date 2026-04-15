@@ -51,7 +51,7 @@ export default function PhoneMockup({ daySelected }: { daySelected: number }) {
                             ? "Central Park, The Met, and hidden gems in Manhattan"
                             : daySelected === 2
                                 ? "Brooklyn vibes: street art, food, and culture"
-                                : "Off the beaten path: Queens and Bronx exploration"
+                                : "Off the beaten path: SoHo, local eats, and authentic NYC life"
                         }
                     </h2>
                 </div>

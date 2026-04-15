@@ -64,8 +64,8 @@ export default function AdCard({ id, spots, city, description, cover, price }: A
                         onClick={handleSelect}
                         variant="outline"
                         size="icon-lg"
-                        className="bg-zinc-200 text-zinc-900">
-                        <ArrowUpRight size={16} />
+                        className="bg-zinc-200 text-zinc-900 group">
+                        <ArrowUpRight size={16} className="hover:rotate-12 group-hover:-rotate-45 transition" />
                     </Button>
                 </div>
             </div>

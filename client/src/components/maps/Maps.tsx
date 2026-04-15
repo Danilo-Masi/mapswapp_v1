@@ -39,7 +39,7 @@ export default function Maps() {
     });
 
     return (
-        <section className="w-[95%] md:w-5/6 h-min flex flex-col items-center gap-10">
+        <section className="w-[95%] md:w-5/6 h-min flex flex-col items-center gap-10" id="maps">
             {/* Search Bar */}
             {isMobile
                 ? <SearchBarMobile

@@ -1,12 +1,13 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+// Data
 import { faqs } from "@/data/faqs"
 
 export function AccordionFaq() {
   return (
     <Accordion
       type="single"
-      defaultChecked={true}
-      className="w-full md:max-w-2xl rounded-2xl border border-zinc-200 bg-white shadow-sm">
+      defaultValue="how_it_works"
+      className="w-full md:w-3/5 rounded-2xl border border-zinc-200 bg-white shadow-xl">
       {faqs.map((item) => (
         <AccordionItem
           key={item.value}

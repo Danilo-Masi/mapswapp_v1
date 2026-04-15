@@ -6,6 +6,8 @@ import { Button } from "../ui/button";
 import bg_image from "../../assets/bg_1.jpg";
 // Data
 import { itineraries } from "@/data/itineraries";
+import { scrollToElement } from "@/lib/gsap";
+import { Earth, Telescope } from "lucide-react";
 
 export default function HeroGlobe() {
     const navigate = useNavigate();
@@ -18,7 +20,7 @@ export default function HeroGlobe() {
     }));
 
     return (
-        <section className="w-full h-auto flex flex-col items-center gap-y-10 pt-5 relative">
+        <section className="w-full h-auto flex flex-col items-center gap-y-10 relative">
 
             {/* BACKGROUND */}
             <img src={bg_image} className="w-full h-full object-cover absolute top-0 left-0 z-0" />
@@ -41,13 +43,15 @@ export default function HeroGlobe() {
                         just open it on <span className="italic font-bold text-zinc-900">Google Maps </span> 📍 and go
                     </p>
                     <div className="flex flex-col md:flex-row gap-3">
-                        <Button className="w-full md:w-auto px-6 py-7 text-base font-semibold rounded-xl bg-blue-500 text-white shadow-lg hover:scale-105 active:scale-95 transition">
-                            🔍 Explore itineraries
+                        <Button
+                            onClick={() => scrollToElement("maps")}
+                            className="w-full md:w-auto p-6 text-base font-semibold rounded-xl bg-blue-500 text-white shadow-lg hover:scale-105 active:scale-95 transition">
+                            <Telescope /> Explore itineraries
                         </Button>
                         <Button
                             onClick={() => navigate("/globe", { replace: true })}
-                            className="w-full md:w-auto px-6 py-7 text-base font-medium rounded-xl border border-zinc-300 hover:bg-zinc-900/80 transition">
-                            🌍 Build your map
+                            className="w-full md:w-auto p-6 text-base font-medium rounded-xl hover:bg-zinc-800 transition">
+                            <Earth /> Build your map
                         </Button>
                     </div>
                 </div>

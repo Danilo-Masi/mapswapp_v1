@@ -5,7 +5,7 @@ import Success from "./pages/Success";
 import TermsService from "./pages/TermsService";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -18,5 +18,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
