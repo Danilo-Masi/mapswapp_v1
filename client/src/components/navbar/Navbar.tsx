@@ -9,7 +9,9 @@ export default function Navbar() {
     const isMobile = useIsMobile()
 
     return (
-        <div className="w-full flex items-center justify-between px-4 md:px-10 py-4 md:py-3 backdrop-blur-xl bg-white/20 border-b border-zinc-200 z-50 sticky top-0">
+        <nav
+            aria-label="Main navigation"
+            className="w-full flex items-center justify-between px-4 md:px-10 py-4 md:py-3 backdrop-blur-xl bg-white/20 border-b border-zinc-200 z-50 sticky top-0">
 
             {/* LEFT */}
             <div className="flex items-center">
@@ -62,6 +64,6 @@ export default function Navbar() {
                 </Button>
 
             </div>
-        </div>
+        </nav>
     )
 }

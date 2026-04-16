@@ -25,7 +25,7 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
     function getColor(status: string) {
         switch (status) {
             case "visited":
-                return "#f59e0b";
+                return "#FFA726";
             case "wishlist":
                 return "#3b82f6";
             default:
@@ -40,7 +40,7 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
             fillColor: getColor(countriesState[code]),
             weight: 1.5,
             color: "#ffffff",
-            fillOpacity: 0.4,
+            fillOpacity: 0.8,
         };
     }
 
@@ -95,6 +95,7 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
                 <TileLayer
                     pane='base'
                     url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
+
 
                 {/* Countries */}
                 {geoData && (

@@ -7,7 +7,7 @@ import milan2 from "../assets/itineraries/milan_card_2.jpg";
 import naples from "../assets/itineraries/naples_card.jpg";
 import naples2 from "../assets/itineraries/naples_card_2.jpg";
 import amsterdam from "../assets/itineraries/amsterdam_card.jpg";
-import amsterdam2 from "../assets/itineraries/amsterdam_card_2.jpg";
+import amsterdam2 from "../assets/itineraries/amsterdam_card_3.webp";
 import split from "../assets/itineraries/split_card.jpg";
 import split2 from "../assets/itineraries/split_card_2.jpg";
 import dubrovnik from "../assets/itineraries/dubrovnik_card.jpg";
@@ -28,6 +28,7 @@ import lisbon from "../assets/itineraries/lisbon_card.jpg";
 import lisbon2 from "../assets/itineraries/lisbon_card_2.jpg";
 import newyork from "../assets/itineraries/newyork_card.jpg";
 import newyork2 from "../assets/itineraries/newyork_card_2.jpg";
+
 
 export const itineraries = [
     {

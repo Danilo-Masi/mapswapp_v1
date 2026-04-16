@@ -70,8 +70,22 @@ export default function Footer() {
 
                 {/* COMMUNITY */}
                 <LinkContainer title="Community">
-                    <li className="cursor-pointer transition hover:text-zinc-50">Instagram</li>
-                    <li className="cursor-pointer transition hover:text-zinc-50">TikTok</li>
+                    <li className="cursor-pointer transition hover:text-zinc-50">
+                        <a
+                            href="https://tiktok.com/@mapswapp"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            TikTok
+                        </a>
+                    </li>
+                    <li className="cursor-pointer transition hover:text-zinc-50">
+                        <a
+                            href="https://instagram.com/mapswapp"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Instagram
+                        </a>
+                    </li>
                     <li
                         onClick={() => setCollaborationOpen(true)}
                         className="cursor-pointer transition font-semibold hover:text-zinc-50">
@@ -81,9 +95,13 @@ export default function Footer() {
 
                 {/* OTHER */}
                 <LinkContainer title="Other by founder">
-                    <li
-                        className="cursor-pointer transition hover:text-zinc-50">
-                        postonreddit
+                    <li className="cursor-pointer transition hover:text-zinc-50">
+                        <a
+                            href="https://postonreddit.com?utm_source=mapswapp"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            postonreddit
+                        </a>
                     </li>
                 </LinkContainer>
             </div>
@@ -98,6 +116,7 @@ export default function Footer() {
                 </p>
             </div>
 
+            {/* BRAND BOTTOM */}
             <div className="w-full h-auto min-h-[10svh] md:min-h-[35svh] relative flex justify-center ">
                 <h1 className="text-6xl md:text-[15rem] font-extrabold text-center absolute -bottom-2 md:-bottom-10">Maspwapp</h1>
             </div>

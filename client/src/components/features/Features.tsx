@@ -26,10 +26,10 @@ function TextSection({ span, title, titleHighlights, description, info }: TextSe
                 {title}
                 <span className="text-blue-500"> {titleHighlights}</span>
             </h1>
-            <p className="text-base text-zinc-600 leading-relaxed text-clip mb-1">
+            <p className="text-base text-zinc-600 leading-relaxed text-balance mb-1">
                 {description}
             </p>
-            <p className="text-sm text-zinc-400 leading-relaxed text-clip">
+            <p className="text-sm text-zinc-400 leading-relaxed text-balance">
                 {info}
             </p>
         </>
@@ -41,30 +41,61 @@ function Feature1() {
         <div className="w-full h-auto md:h-1/2 flex flex-col md:flex-row border border-zinc-300 rounded-xl bg-linear-to-t md:bg-linear-to-l from-blue-500/10 via-blue-200/10 to-transparent">
 
             {/* TEXT */}
-            <div className="w-full md:w-1/2 h-min md:h-full flex flex-col items-start justify-center text-left p-5 order-2 md:order-1">
+            <div className="w-full md:w-1/2 flex flex-col justify-center p-5 order-1 md:order-2">
                 <TextSection
                     span="Explore"
                     title="Pick your next"
                     titleHighlights="adventure"
-                    description="Discover ready-to-follow itineraries built by real travelers. Hidden spots, local vibes, zero planning."
+                    description="Discover ready to follow itineraries built by real travelers. Hidden spots, local vibes, zero planning."
                     info="Soon you’ll be able to sell your own itineraries too"
                 />
             </div>
 
-            {/* UI PREVIEW */}
-            <div className="w-full md:w-1/2 h-[50svh] md:h-full order-1 md:order-2 relative overflow-hidden">
-                {/* Card */}
-                <div className="w-[70%] md:w-4/5 h-[90%] flex flex-col items-start justify-end rounded-b-2xl border border-t-0 border-zinc-200 shadow-lg bg-red-500 absolute -top-20 right-22 md:right-19 hover:-rotate-3 transition duration-300">
-                    <img src={lisbon_card} className="w-full h-full object-cover rounded-b-2xl" />
-                </div>
-                <div className="w-[70%] md:w-4/5 h-[90%] flex flex-col items-start justify-end rounded-b-2xl border border-t-0 border-zinc-200 shadow-lg bg-zinc-300 absolute -top-10 right-15 md:right-13 hover:-rotate-3 transition duration-300">
-                    <img src={london_card} className="w-full h-full object-cover rounded-b-2xl" />
-                </div>
-                <div className="w-[70%] md:w-4/5 h-[90%] flex flex-col items-start justify-end rounded-b-2xl border border-t-0 border-zinc-200 shadow-lg bg-green-200 absolute -top-2 right-5 md:right-5 hover:-rotate-2 transition duration-300">
-                    <img src={newyork_card} className="w-full h-full object-cover rounded-b-2xl z-0 absolute bottom-0 left-0" />
-                </div>
-            </div>
+            {/* CARD STACK */}
+            <div className="w-full md:w-1/2 h-[50svh] md:h-full relative flex items-center justify-center overflow-hidden group order-2 md:order-1">
 
+                {/* BACK */}
+                <div className="absolute w-[70%] md:w-4/5 h-[85%] rounded-2xl overflow-hidden border border-zinc-200 shadow-xl 
+                    top-10 right-16 md:right-20 
+                    rotate-[-8deg] scale-95 opacity-50 blur-[2px]
+                    group-hover:translate-x-2 group-hover:-translate-y-2 transition duration-500">
+
+                    <img src={lisbon_card} className="w-full h-full object-cover" />
+                </div>
+
+                {/* MIDDLE */}
+                <div className="absolute w-[70%] md:w-4/5 h-[85%] rounded-2xl overflow-hidden border border-zinc-200 shadow-xl 
+                    top-5 right-10 md:right-12 
+                    rotate-[-4deg] scale-100 opacity-80
+                    group-hover:translate-x-1 group-hover:-translate-y-1 transition duration-500">
+
+                    <img src={london_card} className="w-full h-full object-cover" />
+                </div>
+
+                {/* FRONT (MAIN CARD) */}
+                <div className="relative w-[75%] md:w-[85%] h-[90%] rounded-2xl overflow-hidden border border-zinc-200 shadow-2xl group-hover:scale-[1.03] transition duration-300">
+
+                    <img src={newyork_card} className="w-full h-full object-cover" />
+
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+
+                    <div className="absolute bottom-0 p-4 text-white flex flex-col gap-1">
+                        <span className="text-xs text-white/70">New York</span>
+                        <h3 className="text-lg font-semibold leading-tight text-balance">
+                            5 days in NYC — Real local experience
+                        </h3>
+                        <span className="text-sm font-medium text-blue-300">
+                            €19.99
+                        </span>
+                    </div>
+                </div>
+
+                {/* FLOATING COUNTER */}
+                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-medium text-zinc-800 shadow-md">
+                    +20 itineraries
+                </div>
+
+            </div>
         </div>
     )
 }
@@ -74,18 +105,18 @@ function Feature2({ daySelected, setDaySelected }: { daySelected: number; setDay
         <div className="w-full h-auto md:h-1/2 flex flex-col md:flex-row items-center gap-8 border border-zinc-200 rounded-2xl p-6 md:p-10 bg-linear-to-b md:bg-linear-to-r from-blue-500/10 via-blue-200/10 to-transparent">
 
             {/* TEXT */}
-            <div className="w-full md:w-1/2 h-min md:h-full flex flex-col items-start justify-center text-left order-1 md:order-2">
+            <div className="w-full md:w-1/2 h-min md:h-full flex flex-col items-start justify-center text-left">
                 <TextSection
                     span="How it works"
                     title="Plan nothing."
                     titleHighlights="Follow everyhing."
                     description="Your trip is already organized day by day. Just open it, follow the route, and enjoy the experience."
-                    info="Turn days on or off anytime — adapt it to your trip."
+                    info="Turn days on or off anytime, adapt it to your trip"
                 />
             </div>
 
-            {/* UI PREVIEW */}
-            <div className="w-full md:w-1/2 flex items-center justify-center order-2 md:order-1">
+            {/* SWITCH */}
+            <div className="w-full md:w-1/2 flex items-center justify-center">
                 <div className="w-full max-w-sm flex flex-col gap-3">
                     {days.map((day) => {
                         const isActive = daySelected === day.id

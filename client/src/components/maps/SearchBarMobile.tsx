@@ -159,7 +159,7 @@ export default function SearchBarMobile({ isExploreLoading, setExploreLoading }:
             <Button
                 onClick={handleSearch}
                 disabled={isExploreLoading}
-                className="md:ml-2 w-full md:w-auto px-6 py-5 rounded-xl bg-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition flex items-center justify-center gap-2">
+                className="md:ml-2 w-full md:w-auto p-8 rounded-xl bg-blue-500 text-white font-semibold shadow-lg hover:scale-105 hover:shadow-xl transition flex items-center justify-center gap-2">
                 {isExploreLoading ? (
                     <>
                         Loading
