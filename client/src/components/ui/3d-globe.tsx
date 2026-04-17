@@ -1,9 +1,9 @@
-"use client";
-import React, { useRef, useMemo, useState, useCallback, Suspense } from "react";
+import React, { useRef, useMemo, useState, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Html, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 import { cn } from "@/lib/utils";
+import { Spinner } from "./spinner";
 
 // ============================================================================
 // Types
@@ -442,10 +442,8 @@ function Scene({ markers, config, onMarkerClick, onMarkerHover }: SceneProps) {
 function LoadingFallback() {
   return (
     <Html center>
-      <div className="flex shrink-0 flex-col items-center gap-3">
-        <span className="inline-block shrink-0 text-sm text-neutral-400">
-          Loading globe...
-        </span>
+      <div className="flex shrink-0 flex-col items-center gap-3 text-zinc-200">
+        <Spinner />
       </div>
     </Html>
   );

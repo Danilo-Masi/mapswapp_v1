@@ -6,12 +6,7 @@ import countries from "world-countries";
 import { Dialog, DialogContent } from "../ui/dialog";
 import DataVisualization from "./DataVisualization";
 import ToggleButtons from "./ToggleButtons";
-
-interface AnalyticsDialogProps {
-    isAnalyticsOpen: boolean;
-    setAnalyticsOpen: (open: boolean) => void;
-    countriesState: Record<string, string>;
-}
+import { useAppContext } from "@/context/AppContext";
 
 const VALID_REGIONS = ["Europe", "Asia", "Africa", "Oceania", "Americas"];
 
@@ -30,7 +25,9 @@ const totalByContinent: Record<string, number> = countries.reduce(
     {} as Record<string, number>
 );
 
-export default function AnalyticsDialog({ isAnalyticsOpen, setAnalyticsOpen, countriesState }: AnalyticsDialogProps) {
+export default function AnalyticsDialog({ countriesState }: { countriesState: Record<string, string> }) {
+
+    const { isAnalyticsDialogOpen, setAnalyticsDialogOpen } = useAppContext();
     const [selectedType, setSelectedType] = useState<"visited" | "wishlist">("visited");
 
     // Grouped countries
@@ -89,7 +86,7 @@ export default function AnalyticsDialog({ isAnalyticsOpen, setAnalyticsOpen, cou
     }));
 
     return (
-        <Dialog open={isAnalyticsOpen} onOpenChange={setAnalyticsOpen}>
+        <Dialog open={isAnalyticsDialogOpen} onOpenChange={setAnalyticsDialogOpen}>
             <DialogContent className="z-50 max-w-md max-h-[90svh] overflow-y-scroll p-6 flex flex-col gap-10" showCloseButton={false}>
 
                 {/* HEADER STATS */}

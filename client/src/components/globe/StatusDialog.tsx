@@ -4,17 +4,17 @@ import { Button } from "../ui/button";
 import { Compass, Flag, Heart } from "lucide-react"
 import ReactCountryFlag from "react-country-flag"
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "@/context/AppContext";
 
 interface StatusDialogProps {
-    dialogOpen: boolean;
-    setDialogOpen: Dispatch<SetStateAction<boolean>>;
     selectedCountry: { name: string; code: string };
-    setCountriesState: Dispatch<SetStateAction<any>>;
     countriesState: { [key: string]: string };
+    setCountriesState: Dispatch<SetStateAction<any>>;
 }
 
-export default function StatusDialog({ dialogOpen, setDialogOpen, selectedCountry, setCountriesState, countriesState }: StatusDialogProps) {
+export default function StatusDialog({ selectedCountry, setCountriesState, countriesState }: StatusDialogProps) {
     const navigate = useNavigate();
+    const {isStateDialogOpen, setStateDialogOpen} = useAppContext();
     const isVisited = countriesState[selectedCountry.code] === "visited";
     const isWishlist = countriesState[selectedCountry.code] === "wishlist";
 
@@ -27,11 +27,11 @@ export default function StatusDialog({ dialogOpen, setDialogOpen, selectedCountr
                     currentStatus === status ? null : status,
             };
         });
-        setDialogOpen(false);
+        setStateDialogOpen(false);
     }
 
     return (
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog open={isStateDialogOpen} onOpenChange={setStateDialogOpen}>
             <DialogContent className="z-50 max-w-md p-6" showCloseButton={false}>
 
                 {/* HEADER */}

@@ -1,4 +1,3 @@
-import { useAppContext } from "@/context/AppContext";
 import useIsMobile from "@/lib/screenWidth";
 // Components
 import HeroGlobe from "@/components/hero/HeroGlobe";
@@ -14,7 +13,6 @@ import CollaborationDialog from "@/components/footer/CollaborationDialog";
 
 export default function Home() {
     const isMobile = useIsMobile();
-    const { isPreviewOpen, isCollaborationOpen } = useAppContext();
 
     return (
         <div className="w-full h-auto flex flex-col items-center justify-start gap-40 bg-linear-to-t from-blue-500/20 via-zinc-50 to-zinc-50">
@@ -24,8 +22,9 @@ export default function Home() {
             <Maps />
             <Faqs />
             <Footer />
-            {isPreviewOpen && isMobile ? <PreviewCardMobile /> : isPreviewOpen && <PreviewCard />}
-            {isCollaborationOpen && <CollaborationDialog />}
+            {/* Dialogs */}
+            {isMobile ? <PreviewCardMobile /> : <PreviewCard />}
+            <CollaborationDialog />
         </div>
     )
 }

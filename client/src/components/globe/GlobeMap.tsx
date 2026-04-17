@@ -1,15 +1,16 @@
 import { MapContainer, TileLayer, GeoJSON, Pane } from 'react-leaflet'
 import { useEffect, useRef, useState, type Dispatch, type SetStateAction } from 'react';
+import { useAppContext } from '@/context/AppContext';
 
 interface GlobeMapProps {
     countriesState: { [key: string]: string };
-    setDialogOpen: Dispatch<SetStateAction<boolean>>;
     setSelectedCountry: Dispatch<SetStateAction<{ name: string; code: string }>>;
 }
 
-export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCountry }: GlobeMapProps) {
+export default function GlobeMap({ countriesState, setSelectedCountry }: GlobeMapProps) {
     const geoJsonRef = useRef<any>(null);
     const [geoData, setGeoData] = useState<any>(null);
+    const { setStateDialogOpen } = useAppContext();
 
     // Function to load GeoJSON data for countries
     const loadGeoData = () => {
@@ -52,7 +53,7 @@ export default function GlobeMap({ countriesState, setDialogOpen, setSelectedCou
         layer.on({
             click: () => {
                 setSelectedCountry({ name, code });
-                setDialogOpen(true);
+                setStateDialogOpen(true);
             },
 
             mouseover: (e: any) => {

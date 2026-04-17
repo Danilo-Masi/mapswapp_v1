@@ -20,6 +20,13 @@ type AppContextType = {
     // Footer
     isCollaborationOpen: boolean;
     setCollaborationOpen: Dispatch<SetStateAction<boolean>>;
+    // Globe
+    isStateDialogOpen: boolean;
+    setStateDialogOpen: Dispatch<SetStateAction<boolean>>;
+    isAnalyticsDialogOpen: boolean;
+    setAnalyticsDialogOpen: Dispatch<SetStateAction<boolean>>;
+    isShareDialogOpen: boolean;
+    setShareDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -29,18 +36,22 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [isPreviewOpen, setPreviewOpen] = useState(false);
     const [selectedItinerary, setSelectedItinerary] = useState("");
     // Maps - filters
-    const [destination, setDestination] = useState("trending")
+    const [destination, setDestination] = useState("")
     const [duration, setDuration] = useState("")
     const [period, setPeriod] = useState("")
-    const [badge, setBadge] = useState("trending")
+    const [badge, setBadge] = useState("best_value")
     const [filters, setFilters] = useState({
         destination: "",
         duration: "",
         period: "",
-        badge: "trending"
+        badge: "best_value"
     });
     // Footer
     const [isCollaborationOpen, setCollaborationOpen] = useState(false);
+    // Globe
+    const [isStateDialogOpen, setStateDialogOpen] = useState(false);
+    const [isAnalyticsDialogOpen, setAnalyticsDialogOpen] = useState(false);
+    const [isShareDialogOpen, setShareDialogOpen] = useState(false);
 
     return (
         <AppContext.Provider
@@ -63,7 +74,14 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
                 setFilters,
                 // Footer
                 isCollaborationOpen,
-                setCollaborationOpen
+                setCollaborationOpen,
+                // Globe
+                isStateDialogOpen,
+                setStateDialogOpen,
+                isAnalyticsDialogOpen,
+                setAnalyticsDialogOpen,
+                isShareDialogOpen,
+                setShareDialogOpen
             }}>
             {children}
         </AppContext.Provider>

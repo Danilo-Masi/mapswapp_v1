@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useRef } from "react";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import { Button } from "../ui/button";
-import { Spinner } from "../ui/spinner";
 import { Earth, Telescope } from "lucide-react";
 // Globe
 const Globe3D = lazy(() => import("@/components/ui/3d-globe"));
@@ -107,21 +106,20 @@ export default function HeroGlobe() {
                     </div>
                 </div>
                 {/* Globe */}
-                <Suspense fallback={<Spinner />}>
-                    <div className="w-full md:w-1/2 h-[50svh] md:h-[80svh] relative overflow-hidden">
-                        <Globe3D
-                            className="h-full w-full size-160 md:size-230 absolute -bottom-72 md:-bottom-96 left-1/2 md:left-32 -translate-x-1/2 md:translate-0"
-                            markers={markers}
-                            config={globeConfig}
-                        />
-                        {/* SEO */}
-                        <h2 className="sr-only">
-                            Explore travel itineraries around the world on an interactive map
-                        </h2>
-                    </div>
-                </Suspense>
+
+                <div className="w-full md:w-1/2 h-[50svh] md:h-[80svh] relative overflow-hidden">
+                    <Globe3D
+                        className="h-full w-full size-160 md:size-230 absolute -bottom-72 md:-bottom-96 left-1/2 md:left-32 -translate-x-1/2 md:translate-0"
+                        markers={markers}
+                        config={globeConfig}
+                    />
+                    {/* SEO */}
+                    <h2 className="sr-only">
+                        Explore travel itineraries around the world on an interactive map
+                    </h2>
+                </div>
             </div>
 
-        </section>
+        </section >
     );
 }

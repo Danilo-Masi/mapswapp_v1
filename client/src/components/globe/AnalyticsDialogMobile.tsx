@@ -6,10 +6,9 @@ import ToggleButtons from "./ToggleButtons";
 import countries from "world-countries";
 import ReactCountryFlag from "react-country-flag";
 import { CountryName } from "react-countryname-flag";
+import { useAppContext } from "@/context/AppContext";
 
 interface AnalyticsDialogMobileProps {
-  isAnalyticsOpen: boolean;
-  setAnalyticsOpen: (open: boolean) => void;
   countriesState: { [key: string]: string };
 }
 
@@ -31,8 +30,8 @@ countries.forEach((c) => {
   totalByContinent[c.region]++;
 });
 
-export default function AnalyticsDialogMobile({ isAnalyticsOpen, setAnalyticsOpen, countriesState }: AnalyticsDialogMobileProps) {
-
+export default function AnalyticsDialogMobile({ countriesState }: AnalyticsDialogMobileProps) {
+  const { isAnalyticsDialogOpen, setAnalyticsDialogOpen } = useAppContext();
   const [selectedType, setSelectedType] = useState<"visited" | "wishlist">("visited");
 
   // Grouped countries
@@ -91,7 +90,7 @@ export default function AnalyticsDialogMobile({ isAnalyticsOpen, setAnalyticsOpe
   }, [countriesState]);
 
   return (
-    <Drawer open={isAnalyticsOpen} onOpenChange={setAnalyticsOpen}>
+    <Drawer open={isAnalyticsDialogOpen} onOpenChange={setAnalyticsDialogOpen}>
       <DrawerContent className="p-4 pt-0 z-50 flex flex-col gap-8">
 
         {/* HEADER STATS */}

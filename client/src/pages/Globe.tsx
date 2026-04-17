@@ -1,28 +1,33 @@
 import { useEffect, useMemo, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useAppContext } from "@/context/AppContext";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, Earth } from "lucide-react";
+import useIsMobile from "@/lib/screenWidth";
+import { ChevronLeft, Earth, Share2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import GlobeMap from "@/components/globe/GlobeMap";
 import StatusDialog from "@/components/globe/StatusDialog";
 import StatusDialogMobile from "@/components/globe/StatusDialogMobile";
 import AnalyticsDialog from "@/components/globe/AnalyticsDialog";
 import AnalyticsDialogMobile from "@/components/globe/AnalyticsDialogMobile";
-import useIsMobile from "@/lib/screenWidth";
+import ShareDialog from "@/components/globe/ShareDialog";
 
 export default function Globe() {
     const navigate = useNavigate();
     const isMobile = useIsMobile();
+
+    const { setAnalyticsDialogOpen, setShareDialogOpen } = useAppContext();
+
     // State for selected country in the dialog
-    const [selectedCountry, setSelectedCountry] = useState<{ name: string; code: string }>({ name: "", code: "" });
+    const [selectedCountry, setSelectedCountry] = useState<{ name: string; code: string }>({
+        name: "",
+        code: ""
+    });
+
     // Save countries state in localStorage to persist it across page reloads
     const [countriesState, setCountriesState] = useState<{ [key: string]: string }>(() => {
         const saved = localStorage.getItem("countriesState");
         return saved ? JSON.parse(saved) : {};
     });
-    // State for country status dialog
-    const [dialogOpen, setDialogOpen] = useState(false);
-    // Analytics dialog state
-    const [isAnalyticsOpen, setAnalyticsOpen] = useState(false);
 
     // Update localStorage whenever countriesState changes
     useEffect(() => {
@@ -35,7 +40,7 @@ export default function Globe() {
     );
 
     return (
-        <div className="w-full h-svh relative ovefloww-hidden">
+        <div className="w-full h-svh relative overflow-hidden">
 
             {/* FLOATING BACK BUTTON */}
             <Button
@@ -47,32 +52,31 @@ export default function Globe() {
             {/* MAP */}
             <GlobeMap
                 countriesState={countriesState}
-                setDialogOpen={setDialogOpen}
-                setSelectedCountry={setSelectedCountry} />
+                setSelectedCountry={setSelectedCountry}
+            />
 
-            {/* FLOATING ANALYTICS BUTTON */}
-            <div className="absolute bottom-5 right-5 flex flex-col gap-3 items-center">
-                <button
-                    onClick={() => setAnalyticsOpen(true)}
-                    className="p-3 rounded-full bg-blue-500 shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer">
-                    <Earth className="w-8 md:w-6 h-8 md:h-6 text-white" />
-                </button>
-                <div className="px-3 py-1 rounded-full bg-white shadow text-xs text-zinc-600">
-                    🌍 {visitedCount} visited
+            {/* FLOATING ACTION BUTTONS */}
+            <div className="w-min h-min flex flex-col items-center gap-3 absolute bottom-5 right-5 z-50">
+                <div className="flex flex-col gap-1 items-center">
+                    <Button
+                        size="icon"
+                        onClick={() => setAnalyticsDialogOpen(true)}
+                        className="p-5 rounded-full bg-blue-500 hover:bg-blue-600 shadow-lg hover:scale-105 active:scale-95 transition cursor-pointer">
+                        <Earth size={20} />
+                    </Button>
+                    <div className="w-max px-3 py-1 rounded-full bg-white shadow text-xs text-zinc-600">
+                        🌍 {visitedCount} visited
+                    </div>
                 </div>
             </div>
 
             {/* COUNTRY STATUS DIALOG */}
             {!isMobile
                 ? <StatusDialog
-                    dialogOpen={dialogOpen}
-                    setDialogOpen={setDialogOpen}
                     selectedCountry={selectedCountry}
                     setCountriesState={setCountriesState}
                     countriesState={countriesState} />
                 : <StatusDialogMobile
-                    dialogOpen={dialogOpen}
-                    setDialogOpen={setDialogOpen}
                     selectedCountry={selectedCountry}
                     setCountriesState={setCountriesState}
                     countriesState={countriesState} />
@@ -81,12 +85,8 @@ export default function Globe() {
             {/* ANALTYCS DIALOG */}
             {!isMobile
                 ? <AnalyticsDialog
-                    isAnalyticsOpen={isAnalyticsOpen}
-                    setAnalyticsOpen={setAnalyticsOpen}
                     countriesState={countriesState} />
                 : <AnalyticsDialogMobile
-                    isAnalyticsOpen={isAnalyticsOpen}
-                    setAnalyticsOpen={setAnalyticsOpen}
                     countriesState={countriesState} />
             }
 

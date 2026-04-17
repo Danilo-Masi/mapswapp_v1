@@ -3,17 +3,16 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } f
 import { Button } from "../ui/button";
 import { Compass, Heart, Flag } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
+import { useAppContext } from "@/context/AppContext";
 
 interface StatusDialogProps {
-    dialogOpen: boolean;
-    setDialogOpen: Dispatch<SetStateAction<boolean>>;
     selectedCountry: { name: string; code: string };
-    setCountriesState: Dispatch<SetStateAction<any>>;
     countriesState: { [key: string]: string };
+    setCountriesState: Dispatch<SetStateAction<any>>;
 }
 
-export default function StatusDialogMobile({ dialogOpen, setDialogOpen, selectedCountry, setCountriesState, countriesState }: StatusDialogProps) {
-
+export default function StatusDialogMobile({ selectedCountry, setCountriesState, countriesState }: StatusDialogProps) {
+    const {isStateDialogOpen, setStateDialogOpen} = useAppContext();
     const isVisited = countriesState[selectedCountry.code] === "visited";
     const isWishlist = countriesState[selectedCountry.code] === "wishlist";
 
@@ -26,11 +25,11 @@ export default function StatusDialogMobile({ dialogOpen, setDialogOpen, selected
                     currentStatus === status ? null : status,
             };
         });
-        setDialogOpen(false);
+        setStateDialogOpen(false);
     }
 
     return (
-        <Drawer open={dialogOpen} onOpenChange={setDialogOpen}>
+        <Drawer open={isStateDialogOpen} onOpenChange={setStateDialogOpen}>
             <DrawerContent className="p-4 pt-0 z-50">
 
                 {/* HEADER */}
