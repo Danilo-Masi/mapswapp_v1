@@ -111,9 +111,6 @@ export default function Footer() {
                 <p className="text-xs text-zinc-100">
                     © {year} Mapswapp All rights reserved.
                 </p>
-                <p className="text-xs text-zinc-100 hover:underline cursor-pointer transition">
-                    Sitemap
-                </p>
             </div>
 
             {/* BRAND BOTTOM */}

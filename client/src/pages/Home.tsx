@@ -10,9 +10,17 @@ import Footer from "../components/footer/Footer";
 import PreviewCard from "@/components/maps/PreviewCard";
 import PreviewCardMobile from "@/components/maps/PreviewCardMobile";
 import CollaborationDialog from "@/components/footer/CollaborationDialog";
+import { useEffect } from "react";
+import { scrollToElement } from "@/lib/gsap";
 
 export default function Home() {
     const isMobile = useIsMobile();
+
+    useEffect(() => {
+        if (window.location.hash === "#maps") {
+            scrollToElement("maps");
+        }
+    }, []);
 
     return (
         <div className="w-full h-auto flex flex-col items-center justify-start gap-40 bg-linear-to-t from-blue-500/20 via-zinc-50 to-zinc-50">

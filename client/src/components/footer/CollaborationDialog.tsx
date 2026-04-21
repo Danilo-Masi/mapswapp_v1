@@ -72,12 +72,12 @@ export default function CollaborationDialog() {
                     {/* CTA */}
                     <div className="flex flex-col gap-2 items-center text-center">
                         <a
-                            href="mailto:collaboration@mapswapp.com"
+                            href="mailto:support@mapswapp.com"
                             className="w-full py-3 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition shadow-lg hover:shadow-xl">
                             Apply now <Mail className="inline-block ml-2" size={18} />
                         </a>
                         <span className="text-xs text-zinc-400">
-                            collaboration@mapswapp.com
+                            support@mapswapp.com
                         </span>
                     </div>
 

@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+// Data
+import { privacyPolicy } from "@/data/privacy";
 
 export default function PrivacyPolicy() {
     const navigate = useNavigate();
@@ -10,13 +12,42 @@ export default function PrivacyPolicy() {
                 <Button className="w-min p-5 rounded-xl" onClick={() => navigate(-1)}>
                     <ChevronLeft />Back
                 </Button>
-                {Array(10).fill(0).map((_, i) => (
-                    <div className="w-full flex flex-col gap-3">
-                        <h2 className="text-xl font-bold">Privacy Policy {i + 1}</h2>
-                        <p key={i} className="text-sm text-balance text-zinc-400">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in ornare urna. Suspendisse scelerisque vel turpis ut condimentum. Vestibulum hendrerit aliquam leo et viverra. Donec fringilla dolor non massa pretium posuere. Nulla tempor consectetur odio nec viverra. Donec eget tellus nibh. Quisque quis fringilla lorem. Nam euismod convallis gravida. Cras eget consequat turpis. In in ante vel urna suscipit luctus eget vel justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean porttitor ultrices nunc, id luctus arcu cursus sit amet. Sed bibendum lectus odio, at sagittis velit semper a.
-                        </p>
-                    </div>
+                {privacyPolicy.map((section) => (
+                    <section
+                        key={section.id}
+                        className="w-full h-auto flex flex-col gap-2">
+
+                        <h2 className="text-lg font-semibold">
+                            {section.title}
+                        </h2>
+
+                        {section.content.map((item, i) => {
+                            return (
+                                <p key={i} className="text-sm text-balance leading-relaxed text-zinc-600">
+                                    {item}
+                                </p>
+                            );
+                        })}
+
+                        {section.list?.map((item, i) => {
+                            return (
+                                <ul key={i} className="text-sm text-balance leading-relaxed space-y-1 list-disc pl-5 text-zinc-600">
+                                    <li key={i}>
+                                        {item}
+                                    </li>
+                                </ul>
+                            );
+                        })}
+
+                        {section.link !== undefined &&
+                            <a
+                                href="mailto:support@mapswapp.com"
+                                className="text-sm text-zinc-900 hover:text-blue-500">
+                                {section.link}
+                            </a>
+                        }
+
+                    </section>
                 ))}
             </div>
         </div>

@@ -15,9 +15,9 @@ export default function InfiniteCards() {
             <div className="absolute right-0 top-0 w-20 h-full bg-linear-to-l from-zinc-50 via-zinc-50/30 to-transparent z-10" />
             {/* Track */}
             <div className="flex w-max animate-scroll gap-6">
-                {duplicated.map((item) => (
+                {duplicated.map((item, i) => (
                     <AdCard
-                        key={item.id}
+                        key={i}
                         id={item.id}
                         spots={item.spots}
                         city={item.city}

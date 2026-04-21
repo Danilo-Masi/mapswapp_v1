@@ -31,7 +31,8 @@ export default function StatusDialog({ selectedCountry, setCountriesState, count
     }
 
     const handleExpolore = () => {
-        navigate("/");
+        setStateDialogOpen(false);
+        navigate("/#maps");
     }
 
     return (

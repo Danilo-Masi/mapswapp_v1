@@ -42,6 +42,6 @@ export const faqs = [
     {
         value: "create",
         trigger: "Can I create and sell my own itinerary?",
-        content: "Not yet, Mapswapp is currently in beta. We’re building a creator platform that will allow you to publish and sell your own itineraries soon. If you want early access, contact us at collaboration@mapswapp.com."
+        content: "Not yet, Mapswapp is currently in beta. We’re building a creator platform that will allow you to publish and sell your own itineraries soon. If you want early access, contact us at support@mapswapp.com."
     }
 ];

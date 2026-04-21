@@ -14,7 +14,7 @@ export default function Maps() {
 
     // Search loading status
     const [isExploreLoading, setExploreLoading] = useState(false)
-    
+
     // Function to set itineraries by the filter
     const filteredItineraries = itineraries.filter((itinerary) => {
         const matchDestination =

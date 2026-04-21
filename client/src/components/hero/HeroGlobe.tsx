@@ -49,8 +49,8 @@ export default function HeroGlobe() {
     // Globe config
     const globeConfig = useMemo(() => ({
         bumpScale: 25,
-        initialRotation: { x: 0.41028, y: 0.158209 },
-        autoRotateSpeed: 0.5,
+        initialRotation: { x: 0.87, y: -0.17 },
+        autoRotateSpeed: 0.3,
         ambientIntensity: 3,
         pointLightIntensity: 5,
     }), []);
@@ -106,7 +106,6 @@ export default function HeroGlobe() {
                     </div>
                 </div>
                 {/* Globe */}
-
                 <div className="w-full md:w-1/2 h-[50svh] md:h-[80svh] relative overflow-hidden">
                     <Globe3D
                         className="h-full w-full size-160 md:size-230 absolute -bottom-72 md:-bottom-96 left-1/2 md:left-32 -translate-x-1/2 md:translate-0"
