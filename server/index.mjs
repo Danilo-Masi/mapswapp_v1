@@ -1,10 +1,9 @@
 import Fastify from "fastify";
 const fastify = Fastify({ logger: true });
 
-fastify.get("/", async function handler(request, reply) {
-    request.log.info("Handiling hello world");
-    return { hello: "fatstify ciao" };
-});
+import billingRoutes from "./routes/billing/create-checkout-session.mjs";
+
+fastify.register(billingRoutes);
 
 try {
     await fastify.listen({ port: 3000 });
