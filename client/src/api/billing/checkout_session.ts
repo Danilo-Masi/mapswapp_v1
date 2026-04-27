@@ -4,29 +4,31 @@ export async function checkoutSession(id: string) {
             "http://127.0.0.1:3000/billing/create-checkout-session",
             {
                 method: "POST",
-                credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id }),
+                body: JSON.stringify({ product_id_client: id }),
             }
         );
 
         const data = await res.json();
 
         if (!res.ok) {
-            console.log("Response error in checkoutSessionFunction(): ", data.error); // DEBUG LOG
+            console.log("Response error in checkoutSessionFunction(): ", data.error);
             return {
                 ok: false,
-                error: "Checkout session failed"
+                error: data.error || "Checkout session failed"
             };
         }
 
-        return { ok: true, checkoutUrl: data.checkoutUrl };
+        return {
+            ok: true,
+            checkoutUrl: data.url
+        };
 
     } catch (error) {
-        console.log("Unexpected error in checkoutSessionFunction(): ", error); // DEBUG LOG
+        console.log("Unexpected error in checkoutSessionFunction(): ", error);
         return {
             ok: false,
-            error: "Unexptected error"
+            error: "Unexpected error"
         };
     }
 }

@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom"
 import { Button } from "../ui/button"
 import { ChevronRight, Lock, MapPin } from "lucide-react"
+import { checkoutSession } from "@/api/billing/checkout_session";
 
 const typeLabel: any = {
     food: "Food spot 🍝",
@@ -11,7 +11,16 @@ const typeLabel: any = {
 }
 
 export default function PreviewInfo({ itinerary }: { itinerary: any }) {
-    const navigate = useNavigate();
+
+    const handleCheckout = async (id: string) => {
+        const checkout = await checkoutSession(id);
+        console.log(checkout);
+        if (!checkout.ok) {
+            alert("No checkout avaible");
+            return;
+        }
+        window.location.href = checkout.checkoutUrl;
+    }
 
     return (
         <div className="w-full h-[50svh] overflow-y-auto flex flex-col justify-between gap-6 px-1 no-scrollbar">
@@ -68,7 +77,7 @@ export default function PreviewInfo({ itinerary }: { itinerary: any }) {
             {/* CTA */}
             <div className="flex flex-col gap-3">
                 <Button
-                    onClick={() => navigate("/success", { replace: true })}
+                    onClick={() => handleCheckout(itinerary.id)}
                     className="w-full py-6 text-base font-semibold bg-blue-500 hover:bg-blue-600 shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2">
                     Unlock full itinerary for €{itinerary.price}
                     <ChevronRight className="w-5 h-5" />

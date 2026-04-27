@@ -1,6 +1,6 @@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { useAppContext } from "@/context/AppContext"
-import { BadgePercent, Camera, Mail, Rocket } from "lucide-react"
+import { BadgePercent, Mail, Rocket } from "lucide-react"
 
 export default function CollaborationDialog() {
     const { isCollaborationOpen, setCollaborationOpen } = useAppContext()
@@ -15,7 +15,7 @@ export default function CollaborationDialog() {
                         Work with Mapswapp 🚀
                     </DialogTitle>
                     <DialogDescription className="text-sm text-zinc-500 text-clip">
-                        We’re in beta, and opening early spots for creators who want to grow with us.
+                        We’re in beta, and opening early spots for travelers and locals who want to grow with us.
                     </DialogDescription>
                 </DialogHeader>
 
@@ -24,41 +24,23 @@ export default function CollaborationDialog() {
 
                     {/* INTRO */}
                     <p className="text-sm text-zinc-600 leading-relaxed text-clip">
-                        We’re building the future of travel itineraries, where creators can publish, share and earn from their own routes.
+                        We’re building the future of travel itineraries, where travelers and locals can publish, share and earn from their own routes.
                         <br /><br />
                         If you join now, you’ll be among the first creators on the platform, with higher visibility and early access advantages.
                     </p>
 
-                    {/* OPTIONS */}
-                    <div className="flex flex-col gap-4">
-
-                        {/* OPTION 1 */}
-                        <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 transition flex items-start gap-3">
-                            <Camera className="text-blue-500 mt-1" size={30} />
-                            <div className="flex flex-col gap-1">
-                                <h3 className="text-base font-semibold text-zinc-900">
-                                    Create content
-                                </h3>
-                                <p className="text-sm text-zinc-600 leading-relaxed">
-                                    Get <span className="font-semibold text-blue-600">50% off</span> an itinerary and share your experience with your audience.
-                                </p>
-                            </div>
+                    {/* OPTION  */}
+                    <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 transition flex items-start gap-3">
+                        <BadgePercent className="text-blue-500 mt-1" size={30} />
+                        <div className="flex flex-col gap-1">
+                            <h3 className="text-base font-semibold text-zinc-900">
+                                Publish your itinerary
+                            </h3>
+                            <p className="text-sm text-zinc-600 leading-relaxed">
+                                Submit your itinerary. If approved, get featured and earn
+                                <span className="font-semibold text-blue-600"> 70% per sale</span>.
+                            </p>
                         </div>
-
-                        {/* OPTION 2 */}
-                        <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 transition flex items-start gap-3">
-                            <BadgePercent className="text-blue-500 mt-1" size={30} />
-                            <div className="flex flex-col gap-1">
-                                <h3 className="text-base font-semibold text-zinc-900">
-                                    Publish your itinerary
-                                </h3>
-                                <p className="text-sm text-zinc-600 leading-relaxed">
-                                    Submit your itinerary. If approved, get featured and earn
-                                    <span className="font-semibold text-blue-600"> 70% per sale</span>.
-                                </p>
-                            </div>
-                        </div>
-
                     </div>
 
                     {/* FOMO */}

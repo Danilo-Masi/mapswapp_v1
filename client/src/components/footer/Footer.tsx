@@ -72,7 +72,7 @@ export default function Footer() {
                 <LinkContainer title="Community">
                     <li className="cursor-pointer transition hover:text-zinc-50">
                         <a
-                            href="https://tiktok.com/@mapswapp"
+                            href="https://www.tiktok.com/@mapswapp"
                             target="_blank"
                             rel="noopener noreferrer">
                             TikTok
@@ -80,7 +80,7 @@ export default function Footer() {
                     </li>
                     <li className="cursor-pointer transition hover:text-zinc-50">
                         <a
-                            href="https://instagram.com/mapswapp"
+                            href="https://www.instagram.com/mapswapp/"
                             target="_blank"
                             rel="noopener noreferrer">
                             Instagram

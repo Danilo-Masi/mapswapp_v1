@@ -271,17 +271,26 @@ export const itineraries: ItineraryType[] = [
     },
 
     {
-        id: "newyork-5-days",
-        title: "New York in 5 days — real NYC",
+        id: "newyork-7-days",
+        title: "New York for the first time",
         description: "Manhattan, Brooklyn and local spots.",
-        city: "New York", country: "USA", continent: "Americas",
-        cover: newyork, cover2: newyork2, price: 19.99, duration: 5, period: "autumn",
-        badge: "trending", spots: 40, level: "intense", vibes: ["food", "nightlife", "culture"],
+        city: "New York",
+        country: "USA",
+        continent: "Americas",
+        cover: newyork,
+        cover2: newyork2,
+        price: 25.99,
+        duration: 5,
+        period: "autumn",
+        badge: "trending",
+        spots: 59,
+        level: "intense",
+        vibes: ["food", "nightlife", "culture"],
         position: { lat: 40.7128, lng: -74.0060 },
         previewSpots: [
-            { id: "1", title: "Times Square", position: { lat: 40.7580, lng: -73.9855 }, type: "photo" },
-            { id: "2", title: "Brooklyn Bridge", position: { lat: 40.7061, lng: -73.9969 }, type: "activity" },
-            { id: "3", title: "Williamsburg food", position: { lat: 40.7081, lng: -73.9571 }, type: "food" }
+            { id: "1", title: "Metropolitan Museum of Art", position: { lat: 40.77943, lng: -73.96324 }, type: "activity" },
+            { id: "2", title: "Central Park", position: { lat: 40.78255, lng: -73.96558 }, type: "activity" },
+            { id: "3", title: "Bow Bridge", position: { lat: 40.77575, lng: -73.97177 }, type: "photo" }
         ]
     }
 ];
