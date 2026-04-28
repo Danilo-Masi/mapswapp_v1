@@ -25,8 +25,6 @@ export default function CollaborationDialog() {
                     {/* INTRO */}
                     <p className="text-sm text-zinc-600 leading-relaxed text-clip">
                         We’re building the future of travel itineraries, where travelers and locals can publish, share and earn from their own routes.
-                        <br /><br />
-                        If you join now, you’ll be among the first creators on the platform, with higher visibility and early access advantages.
                     </p>
 
                     {/* OPTION  */}

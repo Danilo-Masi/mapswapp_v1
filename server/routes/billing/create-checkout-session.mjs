@@ -34,7 +34,7 @@ export default async function checkoutSessionRoute(fastify) {
         try {
             const checkout = await creem.checkouts.create({
                 productId: product_id,
-                successUrl: "https://github.com/Danilo-Masi",
+                successUrl: "https://github.com/Danilo-Masi", // TO UPDATE
             });
 
             return reply.send({
