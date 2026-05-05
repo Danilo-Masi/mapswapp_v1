@@ -2,10 +2,12 @@ import { creem } from "../../config/creem.mjs";
 
 const getProduct = (id) => {
     switch (id) {
-        case "newyork-7-days":
-            return process.env.NEW_YORK_TEST_KEY;
-        case "amsterdam-3-days":
-            return process.env.AMSTERDAM_TEST_KEY;
+        case "lisbon-3-days":
+            return process.env.LISBON_KEY;
+        case "london-4-days":
+            return process.env.LONDON_KEY;
+        case "paris-4-days":
+            return process.env.PARIS_KEY;
         default:
             return null;
     }

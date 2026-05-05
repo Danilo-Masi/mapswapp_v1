@@ -2,20 +2,14 @@ export const categories = [
     { value: "trending", label: "Trending", emoji: "🔥" },
     { value: "new", label: "New", emoji: "✨" },
     { value: "best_value", label: "Best value", emoji: "💎" },
-    { value: "hidden_gems", label: "Hidden gems", emoji: "🧭" },
 ];
 
 export const destinations = {
-    popular: [
-        { value: "italy", label: "Italy", flag: "🇮🇹" },
-        { value: "spain", label: "Spain", flag: "🇪🇸" },
-        { value: "france", label: "France", flag: "🇫🇷" },
-    ],
     europe: [
+        { value: "italy", label: "Italy", flag: "🇮🇹" },
+        { value: "france", label: "France", flag: "🇫🇷" },
         { value: "netherlands", label: "Netherlands", flag: "🇳🇱" },
-        { value: "croatia", label: "Croatia", flag: "🇭🇷" },
         { value: "hungary", label: "Hungary", flag: "🇭🇺" },
-        { value: "austria", label: "Austria", flag: "🇦🇹" },
         { value: "portugal", label: "Portugal", flag: "🇵🇹" },
         { value: "uk", label: "United Kingdom", flag: "🇬🇧" },
     ],

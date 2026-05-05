@@ -1,5 +1,5 @@
-import { MapContainer, TileLayer, Marker } from "react-leaflet"
-import L from "leaflet"
+import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import L from "leaflet";
 
 // Custom marker (numero)
 const createNumberIcon = (number: number) =>
@@ -13,7 +13,6 @@ const createNumberIcon = (number: number) =>
         iconSize: [30, 30],
         iconAnchor: [15, 30],
     })
-
 
 export default function PreviewMap({ itinerary }: { itinerary: any }) {
     return (

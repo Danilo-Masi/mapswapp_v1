@@ -30,20 +30,6 @@ function DestinationSelect({ value, onChange }: any) {
                         </SelectItem>
                     ))}
                 </SelectGroup>
-                {/* Popular */}
-                <SelectGroup>
-                    <SelectLabel className="text-xs text-zinc-400 mb-1">
-                        Popular
-                    </SelectLabel>
-                    {destinations.popular.map((item) => (
-                        <SelectItem key={item.value} value={item.value} className="rounded-lg px-3 py-2 hover:bg-blue-50 cursor-pointer">
-                            <div className="flex items-center gap-3">
-                                <span className="text-lg">{item.flag}</span>
-                                <span>{item.label}</span>
-                            </div>
-                        </SelectItem>
-                    ))}
-                </SelectGroup>
                 {/* Europe */}
                 <SelectGroup>
                     <SelectLabel className="text-xs text-zinc-400 mt-3 mb-1">

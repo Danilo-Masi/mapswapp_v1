@@ -1,14 +1,6 @@
 import { Button } from "../ui/button"
-import { ChevronRight, Lock, MapPin } from "lucide-react"
+import { ChevronRight, Lock, MapPin, Star, UtensilsCrossed } from "lucide-react"
 import { checkoutSession } from "@/api/billing/checkout_session";
-
-const typeLabel: any = {
-    food: "Food spot 🍝",
-    bar: "Bar 🍺",
-    hotel: "Stay 🏨",
-    activity: "Experience 🎢",
-    photo: "Photo spot 📸"
-}
 
 export default function PreviewInfo({ itinerary }: { itinerary: any }) {
 
@@ -37,26 +29,35 @@ export default function PreviewInfo({ itinerary }: { itinerary: any }) {
 
             {/* STOPS */}
             <ul className="flex flex-col gap-3">
-                {itinerary.previewSpots.map((spot: any, i: number) => (
+                {itinerary.previewSpots.map((spot: any,) => (
                     <li
                         key={spot.id}
                         className="group flex items-center justify-between p-4 rounded-xl border border-zinc-200 bg-white hover:shadow-md hover:scale-[1.01] transition cursor-pointer">
-                        <div className="flex items-center gap-3">
-                            {/* Number */}
-                            <div className="w-7 h-7 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 text-xs font-semibold">
-                                {i + 1}
+                        <div className="w-full flex items-center justify-between gap-3">
+                            {/* Start Icon */}
+                            <div className="w-min">
+                                <div className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-semibold ${spot.type === "food" ? 'bg-orange-500' : 'bg-blue-500'}`}>
+                                    {spot.type === "food" ? (
+                                        <UtensilsCrossed size={12} fill="white" color="white" />
+                                    ) : (
+                                        <Star size={12} fill="white" color="white" />
+                                    )}
+                                </div>
                             </div>
                             {/* Text */}
-                            <div className="flex flex-col">
+                            <div className="w-full flex flex-col">
                                 <span className="text-sm font-medium text-zinc-800">
                                     {spot.title}
                                 </span>
-                                <span className="text-xs text-zinc-400">
-                                    {spot.type ? typeLabel[spot.type] : "Point of interest"}
+                                <span className="text-xs line-clamp-1 text-zinc-400">
+                                    {spot.adress}
                                 </span>
                             </div>
+                            {/* Final Icon */}
+                            <div className="w-min flex items-center justify-end">
+                                <MapPin className="w-4 h-4 text-zinc-400 group-hover:text-blue-500 transition" />
+                            </div>
                         </div>
-                        <MapPin className="w-4 h-4 text-zinc-400 group-hover:text-blue-500 transition" />
                     </li>
                 ))}
 
